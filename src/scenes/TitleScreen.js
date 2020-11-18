@@ -1,18 +1,34 @@
-import background from '../assets/images/backgrounds/blue.png';
-import player_blue_one from '../assets/images/png/playerShip1_blue.png';
-
 export class TitleScreen extends Phaser.Scene {
 	constructor(){
-		super('bootGame');
-	}
-
-	preload(){
-		this.load.image('background', background);
-		this.load.image('player_blue_one', player_blue_one);
+		super('titleScreen');
 	}
 
 	create(){
-		this.add.text(20, 20, 'Loading game...');
-		this.scene.start('playGame');
+		this.setKeyEvents();
+
+		this.background = this.add.image(this.game.config.width/2, this.game.config.height/2, 'background');
+
+		this.add.text(
+			this.game.config.width/2 - 50,
+			this.game.config.height/4,
+			'Spaceship Shooter',
+			{ font: '25px Arial', fill: 'orange' }
+		);
+		this.add.text(
+			this.game.config.width/2 - 50,
+			this.game.config.height/4 + 25,
+			'GameOff 2020'
+		);
+		this.add.text(
+			this.game.config.width/2 - 50,
+			this.game.config.height/4 + 50,
+			'Press Spacebar to Start'
+		);
+	}
+
+	setKeyEvents(){
+		this.input.keyboard.on('keyup-SPACE', () => {
+			this.scene.start('playGame');
+		});
 	}
 }
