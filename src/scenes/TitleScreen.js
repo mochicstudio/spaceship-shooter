@@ -4,10 +4,33 @@ export class TitleScreen extends Phaser.Scene {
 	}
 
 	create(){
+		/* Setup Title Screen */
 		this.setKeyEvents();
+		this.setBackground();
+		this.setTitle();
+	}
 
-		this.background = this.add.image(this.game.config.width/2, this.game.config.height/2, 'background');
+	setKeyEvents(){
+		/* Start Game! */
+		this.input.keyboard.on('keyup-SPACE', () => {
+			this.scene.start('playGame');
+		});
+	}
 
+	/* Instead of scaling one image, we set an image each size step.
+	 * It looks better. */
+	setBackground(){
+		this.background = this.add.image(0, 0, 'background').setDisplayOrigin(0, 0);
+		const size = this.background.displayWidth;
+
+		for(let x = 0; x <= this.game.config.width; x += size){
+			for(let y = 0; y <= this.game.config.height; y += size){
+				this.add.image(x, y, 'background').setDisplayOrigin(0, 0);
+			}
+		}
+	}
+
+	setTitle(){
 		this.add.text(
 			this.game.config.width/2 - 50,
 			this.game.config.height/4,
@@ -24,11 +47,5 @@ export class TitleScreen extends Phaser.Scene {
 			this.game.config.height/4 + 50,
 			'Press Spacebar to Start'
 		);
-	}
-
-	setKeyEvents(){
-		this.input.keyboard.on('keyup-SPACE', () => {
-			this.scene.start('playGame');
-		});
 	}
 }
