@@ -1,13 +1,15 @@
 import Phaser from 'phaser';
+import './styles/main.css';
+import { BootGame } from './scenes/BootGame.js';
 import { TitleScreen } from './scenes/TitleScreen.js';
 import { PlayGame } from './scenes/PlayGame.js';
 
 var config = {
 	type: Phaser.AUTO,
-	width: 640,
-	height: 360,
+	width: window.innerWidth,
+	height: window.innerHeight,
 	background: 0x000000,
-	scene: [TitleScreen, PlayGame]
+	scene: [BootGame, TitleScreen, PlayGame]
 };
 
 var game = new Phaser.Game(config);
