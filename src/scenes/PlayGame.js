@@ -4,9 +4,48 @@ export class PlayGame extends Phaser.Scene {
 	}
 
 	create(){
-		this.player_blue_one = this.add.image(this.game.config.width/2, this.game.config.height/2, 'player_blue_one');
-		this.enemy_black_one = this.add.image(this.game.config.width/4, this.game.config.height/4, 'enemy_black_one');
+		this.enemies = [];
+		this.setKeyEvents();
+		this.setBackground();
+		this.initPlayer();
+	}
 
-		this.add.text(20, 20, 'Playing game', { font: '25px Arial', fill: 'yellow' });
+	update(){}
+
+	/* Instead of scaling one image, we set an image each size step.
+	 * It looks better. */
+	setBackground(){
+		this.background = this.add.image(0, 0, 'background').setDisplayOrigin(0, 0);
+		const size = this.background.displayWidth;
+
+		for(let x = 0; x <= this.game.config.width; x += size){
+			for(let y = 0; y <= this.game.config.height; y += size){
+				this.add.image(x, y, 'background').setDisplayOrigin(0, 0);
+			}
+		}
+	}
+
+	setKeyEvents(){
+		/* Move Player */
+		this.input.keyboard.on('keyup-LEFT', () => {
+			this.player.setX(this.player.x - 25);
+		});
+		this.input.keyboard.on('keyup-RIGHT', () => {
+			this.player.setX(this.player.x + 25);
+		});
+	}
+
+	/* Set initial coordinates for the player. */
+	initPlayer(){
+		const playerX = this.game.config.width/2;
+		const playerY = this.game.config.height - 50;
+
+		this.player = this.add.image(0, 0, 'player_blue_one');
+		this.player.setPosition(playerX, playerY, 0, 0);
+	}
+
+	/* Get a random X coordinate to spawn the enemies. */
+	getRandomX(){
+		return Math.floor(Math.random() * Math.floor(this.game.config.width));
 	}
 }
