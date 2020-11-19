@@ -5,6 +5,7 @@ export class PlayGame extends Phaser.Scene {
 
 	create(){
 		this.enemies = [];
+		this.setKeyEvents();
 		this.setBackground();
 		this.initPlayer();
 	}
@@ -22,6 +23,16 @@ export class PlayGame extends Phaser.Scene {
 				this.add.image(x, y, 'background').setDisplayOrigin(0, 0);
 			}
 		}
+	}
+
+	setKeyEvents(){
+		/* Move Player */
+		this.input.keyboard.on('keyup-LEFT', () => {
+			this.player.setX(this.player.x - 25);
+		});
+		this.input.keyboard.on('keyup-RIGHT', () => {
+			this.player.setX(this.player.x + 25);
+		});
 	}
 
 	/* Set initial coordinates for the player. */
