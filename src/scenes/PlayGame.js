@@ -4,12 +4,12 @@ export class PlayGame extends Phaser.Scene {
 	}
 
 	create(){
+		this.enemies = [];
 		this.setBackground();
-		this.player_blue_one = this.add.image(this.game.config.width/2, this.game.config.height/2, 'player_blue_one');
-		this.enemy_black_one = this.add.image(this.game.config.width/4, this.game.config.height/4, 'enemy_black_one');
-
-		this.add.text(20, 20, 'Playing game', { font: '25px Arial', fill: 'yellow' });
+		this.initPlayer();
 	}
+
+	update(){}
 
 	/* Instead of scaling one image, we set an image each size step.
 	 * It looks better. */
@@ -22,5 +22,19 @@ export class PlayGame extends Phaser.Scene {
 				this.add.image(x, y, 'background').setDisplayOrigin(0, 0);
 			}
 		}
+	}
+
+	/* Set initial coordinates for the player. */
+	initPlayer(){
+		const playerX = this.game.config.width/2;
+		const playerY = this.game.config.height - 50;
+
+		this.player = this.add.image(0, 0, 'player_blue_one');
+		this.player.setPosition(playerX, playerY, 0, 0);
+	}
+
+	/* Get a random X coordinate to spawn the enemies. */
+	getRandomX(){
+		return Math.floor(Math.random() * Math.floor(this.game.config.width));
 	}
 }
