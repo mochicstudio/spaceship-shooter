@@ -5,12 +5,19 @@ export class PlayGame extends Phaser.Scene {
 
 	create(){
 		this.enemies = [];
+		this.lasers = [];
 		this.setKeyEvents();
 		this.setBackground();
 		this.initPlayer();
 	}
 
-	update(){}
+	update(){
+		this.lasers.forEach(laser => {
+			laser.setPosition(laser.x, laser.y - 10, 0, 0);
+
+			if(laser.y < 0) laser.destroy();
+		});
+	}
 
 	/* Instead of scaling one image, we set an image each size step.
 	 * It looks better. */
@@ -39,11 +46,7 @@ export class PlayGame extends Phaser.Scene {
 		const winY = this.game.config.height;
 		const playerX = this.player.x;
 		const playerY = this.player.y - 20;
-
-		let laser = this.add.image(playerX, playerY, 'player_laser');
-		for(let i = 0; i < 10; i++){
-			laser.setPosition(playerX, (laser.y - 10), 0, 0);
-		}
+		this.lasers.push(this.add.image(playerX, playerY, 'player_laser'));
 	}
 
 	/* Get a random X coordinate to spawn the enemies. */
