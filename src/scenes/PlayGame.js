@@ -25,16 +25,6 @@ export class PlayGame extends Phaser.Scene {
 		}
 	}
 
-	setKeyEvents(){
-		/* Move Player */
-		this.input.keyboard.on('keyup-LEFT', () => {
-			this.player.setX(this.player.x - 25);
-		});
-		this.input.keyboard.on('keyup-RIGHT', () => {
-			this.player.setX(this.player.x + 25);
-		});
-	}
-
 	/* Set initial coordinates for the player. */
 	initPlayer(){
 		const playerX = this.game.config.width/2;
@@ -44,8 +34,36 @@ export class PlayGame extends Phaser.Scene {
 		this.player.setPosition(playerX, playerY, 0, 0);
 	}
 
+	/* Launch Laser to attack enemies */
+	playerAttack(){
+		const winY = this.game.config.height;
+		const playerX = this.player.x;
+		const playerY = this.player.y - 20;
+
+		let laser = this.add.image(playerX, playerY, 'player_laser');
+		for(let i = 0; i < 10; i++){
+			laser.setPosition(playerX, (laser.y - 10), 0, 0);
+		}
+	}
+
 	/* Get a random X coordinate to spawn the enemies. */
 	getRandomX(){
 		return Math.floor(Math.random() * Math.floor(this.game.config.width));
+	}
+
+	setKeyEvents(){
+		/* Move Player */
+		this.input.keyboard.on('keydown-LEFT', () => {
+			this.player.setX(this.player.x - 25);
+		});
+		this.input.keyboard.on('keydown-RIGHT', () => {
+			this.player.setX(this.player.x + 25);
+		});
+
+		/* Player Attack */
+		this.input.keyboard.on('keydown-SPACE', () => {
+			console.log('Player Attacked!');
+			this.playerAttack();
+		});
 	}
 }
