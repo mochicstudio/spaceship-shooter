@@ -65,7 +65,6 @@ export class PlayGame extends Phaser.Scene {
 
 		/* Player Attack */
 		this.input.keyboard.on('keydown-SPACE', () => {
-			console.log('Player Attacked!');
 			this.playerAttack();
 		});
 	}
