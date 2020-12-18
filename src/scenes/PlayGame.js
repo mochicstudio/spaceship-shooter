@@ -37,13 +37,12 @@ export class PlayGame extends Phaser.Scene {
 		const playerX = this.game.config.width/2;
 		const playerY = this.game.config.height - 50;
 
-		this.player = this.add.image(0, 0, 'player_blue_one');
+		this.player = this.physics.add.image(0, 0, 'player_blue_one');
 		this.player.setPosition(playerX, playerY, 0, 0);
 	}
 
 	/* Launch Laser to attack enemies */
 	playerAttack(){
-		const winY = this.game.config.height;
 		const playerX = this.player.x;
 		const playerY = this.player.y - 20;
 		this.lasers.push(this.add.image(playerX, playerY, 'player_laser'));
