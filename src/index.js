@@ -9,6 +9,13 @@ var config = {
 	width: window.innerWidth,
 	height: window.innerHeight,
 	background: 0x000000,
+	physics: {
+		default: "arcade",
+		arcade: {
+			gravity: { y: 0 },
+			debug: true
+		}
+	},
 	scene: [BootGame, TitleScreen, PlayGame]
 };
 
