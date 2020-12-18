@@ -45,7 +45,7 @@ export class PlayGame extends Phaser.Scene {
 	playerAttack(){
 		const playerX = this.player.x;
 		const playerY = this.player.y - 20;
-		this.lasers.push(this.add.image(playerX, playerY, 'player_laser'));
+		this.lasers.push(this.physics.add.image(playerX, playerY, 'player_laser'));
 	}
 
 	/* Get a random X coordinate to spawn the enemies. */
