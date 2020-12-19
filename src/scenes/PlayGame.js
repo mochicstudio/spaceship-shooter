@@ -14,6 +14,18 @@ export class PlayGame extends Phaser.Scene {
 	}
 
 	update(){
+		if(this.left.isDown){
+			if(this.player.x > 0)
+				this.player.setX(this.player.x - 25);
+		}
+
+		if(this.right.isDown){
+			if(this.player.x < this.game.config.width)
+				this.player.setX(this.player.x + 25);
+		}
+
+		if(this.space.isDown) this.playerAttack();
+
 		this.enemies.forEach(enemy => {
 			enemy.setPosition(enemy.x, enemy.y + 5, 0, 0);
 			if(enemy.y > this.game.config.height) enemy.destroy();
@@ -64,6 +76,9 @@ export class PlayGame extends Phaser.Scene {
 	}
 
 	setKeyEvents(){
+		this.left = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
+		this.right = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+		this.space = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 		/* Move Player */
 		this.input.keyboard.on('keydown-LEFT', () => {
 			if(this.player.x > 0)
@@ -75,9 +90,9 @@ export class PlayGame extends Phaser.Scene {
 		});
 
 		/* Player Attack */
-		this.input.keyboard.on('keydown-SPACE', () => {
-			this.playerAttack();
-		});
+		// this.input.keyboard.on('keydown-SPACE', () => {
+		// 	this.playerAttack();
+		// });
 	}
 
 	setCollisionEvents(){
