@@ -66,10 +66,12 @@ export class PlayGame extends Phaser.Scene {
 	setKeyEvents(){
 		/* Move Player */
 		this.input.keyboard.on('keydown-LEFT', () => {
-			this.player.setX(this.player.x - 25);
+			if(this.player.x > 0)
+				this.player.setX(this.player.x - 25);
 		});
 		this.input.keyboard.on('keydown-RIGHT', () => {
-			this.player.setX(this.player.x + 25);
+			if(this.player.x < this.game.config.width)
+				this.player.setX(this.player.x + 25);
 		});
 
 		/* Player Attack */
