@@ -9,14 +9,25 @@ export class PlayGame extends Phaser.Scene {
 		this.setKeyEvents();
 		this.setBackground();
 		this.initPlayer();
+		this.setCollisionEvents();
+		this.spawnEnemy();
 	}
 
 	update(){
-		this.lasers.forEach(laser => {
-			laser.setPosition(laser.x, laser.y - 10, 0, 0);
+		this.enemies.forEach(enemy => {
+			enemy.setPosition(enemy.x, enemy.y + 5, 0, 0);
+			if(enemy.y > this.game.config.height) enemy.destroy();
+		});
 
+		this.lasers.forEach(laser => {
+			laser.setPosition(laser.x, laser.y - 15, 0, 0);
 			if(laser.y < 0) laser.destroy();
 		});
+	}
+
+	/* Get a random X coordinate to spawn the enemies. */
+	getRandomX(){
+		return Math.floor(Math.random() * Math.floor(this.game.config.width));
 	}
 
 	/* Instead of scaling one image, we set an image each size step.
@@ -44,13 +55,12 @@ export class PlayGame extends Phaser.Scene {
 	/* Launch Laser to attack enemies */
 	playerAttack(){
 		const playerX = this.player.x;
-		const playerY = this.player.y - 20;
+		const playerY = this.player.y - 25;
 		this.lasers.push(this.physics.add.image(playerX, playerY, 'player_laser'));
 	}
 
-	/* Get a random X coordinate to spawn the enemies. */
-	getRandomX(){
-		return Math.floor(Math.random() * Math.floor(this.game.config.width));
+	spawnEnemy(){
+		this.enemies.push(this.physics.add.image(this.getRandomX(), 0, 'enemy_black_one'));
 	}
 
 	setKeyEvents(){
@@ -65,6 +75,14 @@ export class PlayGame extends Phaser.Scene {
 		/* Player Attack */
 		this.input.keyboard.on('keydown-SPACE', () => {
 			this.playerAttack();
+		});
+	}
+
+	setCollisionEvents(){
+		/* Enemy Dies */
+		this.physics.add.collider(this.lasers, this.enemies, (laser, enemy) => {
+			laser.destroy();
+			enemy.destroy();
 		});
 	}
 }
