@@ -9,14 +9,37 @@ export class PlayGame extends Phaser.Scene {
 		this.setKeyEvents();
 		this.setBackground();
 		this.initPlayer();
+		this.setCollisionEvents();
+		this.spawnEnemy();
 	}
 
 	update(){
-		this.lasers.forEach(laser => {
-			laser.setPosition(laser.x, laser.y - 10, 0, 0);
+		if(this.left.isDown){
+			if(this.player.x > 0)
+				this.player.setX(this.player.x - 25);
+		}
 
+		if(this.right.isDown){
+			if(this.player.x < this.game.config.width)
+				this.player.setX(this.player.x + 25);
+		}
+
+		if(this.space.isDown) this.playerAttack();
+
+		this.enemies.forEach(enemy => {
+			enemy.setPosition(enemy.x, enemy.y + 5, 0, 0);
+			if(enemy.y > this.game.config.height) enemy.destroy();
+		});
+
+		this.lasers.forEach(laser => {
+			laser.setPosition(laser.x, laser.y - 15, 0, 0);
 			if(laser.y < 0) laser.destroy();
 		});
+	}
+
+	/* Get a random X coordinate to spawn the enemies. */
+	getRandomX(){
+		return Math.floor(Math.random() * Math.floor(this.game.config.width));
 	}
 
 	/* Instead of scaling one image, we set an image each size step.
@@ -37,35 +60,46 @@ export class PlayGame extends Phaser.Scene {
 		const playerX = this.game.config.width/2;
 		const playerY = this.game.config.height - 50;
 
-		this.player = this.add.image(0, 0, 'player_blue_one');
+		this.player = this.physics.add.image(0, 0, 'player_blue_one');
 		this.player.setPosition(playerX, playerY, 0, 0);
 	}
 
 	/* Launch Laser to attack enemies */
 	playerAttack(){
-		const winY = this.game.config.height;
 		const playerX = this.player.x;
-		const playerY = this.player.y - 20;
-		this.lasers.push(this.add.image(playerX, playerY, 'player_laser'));
+		const playerY = this.player.y - 25;
+		this.lasers.push(this.physics.add.image(playerX, playerY, 'player_laser'));
 	}
 
-	/* Get a random X coordinate to spawn the enemies. */
-	getRandomX(){
-		return Math.floor(Math.random() * Math.floor(this.game.config.width));
+	spawnEnemy(){
+		this.enemies.push(this.physics.add.image(this.getRandomX(), 0, 'enemy_black_one'));
 	}
 
 	setKeyEvents(){
+		this.left = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
+		this.right = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+		this.space = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 		/* Move Player */
 		this.input.keyboard.on('keydown-LEFT', () => {
-			this.player.setX(this.player.x - 25);
+			if(this.player.x > 0)
+				this.player.setX(this.player.x - 25);
 		});
 		this.input.keyboard.on('keydown-RIGHT', () => {
-			this.player.setX(this.player.x + 25);
+			if(this.player.x < this.game.config.width)
+				this.player.setX(this.player.x + 25);
 		});
 
 		/* Player Attack */
-		this.input.keyboard.on('keydown-SPACE', () => {
-			this.playerAttack();
+		// this.input.keyboard.on('keydown-SPACE', () => {
+		// 	this.playerAttack();
+		// });
+	}
+
+	setCollisionEvents(){
+		/* Enemy Dies */
+		this.physics.add.collider(this.lasers, this.enemies, (laser, enemy) => {
+			laser.destroy();
+			enemy.destroy();
 		});
 	}
 }
