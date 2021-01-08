@@ -1,3 +1,4 @@
+import mochic_studio_logo from '../assets/images/logo/mochicstudio.png';
 import background from '../assets/images/backgrounds/blue.png';
 import background_title from '../assets/images/backgrounds/purple.png';
 import player_blue_one from '../assets/images/png/playerShip1_blue.png';
@@ -10,6 +11,7 @@ export class BootGame extends Phaser.Scene {
 	}
 
 	preload(){
+		this.load.image('logo', mochic_studio_logo);
 		this.load.image('background', background);
 		this.load.image('background_title', background_title);
 		this.load.image('player_blue_one', player_blue_one);
@@ -19,6 +21,6 @@ export class BootGame extends Phaser.Scene {
 
 	create(){
 		this.add.text(20, 20, 'Loading game...');
-		this.scene.start('titleScreen');
+		this.scene.start('mochicStudio');
 	}
 }
