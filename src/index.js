@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import './styles/main.css';
 import { BootGame } from './scenes/BootGame.js';
+import { MochicStudio } from './scenes/MochicStudio.js';
 import { TitleScreen } from './scenes/TitleScreen.js';
 import { PlayGame } from './scenes/PlayGame.js';
 
@@ -16,7 +17,7 @@ var config = {
 			debug: true
 		}
 	},
-	scene: [BootGame, TitleScreen, PlayGame]
+	scene: [BootGame, MochicStudio, TitleScreen, PlayGame]
 };
 
 var game = new Phaser.Game(config);
