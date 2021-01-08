@@ -9,8 +9,10 @@ export class MochicStudio extends Phaser.Scene {
 		this.createTimeLine();
 	}
 
+	/* Set Logo initial coordinates */
 	createLogo(){ this.logo = this.add.image(0, 0, 'logo'); }
 
+	/* Set Title initial coordinates */
 	createTitle(){
 		this.title = this.add.text(
 			this.game.config.width / 2,
@@ -21,8 +23,12 @@ export class MochicStudio extends Phaser.Scene {
 	}
 
 	createTimeLine(){
-		var timeline = this.tweens.createTimeline();
+		var timeline = this.tweens.createTimeline({
+			callbackScope: this,
+			onComplete: this.startTitleScreen
+		});
 
+		/* Move the Logo */
 		timeline.add({
 			targets: this.logo,
 			x: this.game.config.width / 2,
@@ -33,6 +39,7 @@ export class MochicStudio extends Phaser.Scene {
 			yoyo: false
 		});
 
+		/* Move the Title */
 		timeline.add({
 			targets: this.title,
 			y: this.game.config.height - 300,
@@ -44,4 +51,6 @@ export class MochicStudio extends Phaser.Scene {
 
 		timeline.play();
 	}
+
+	startTitleScreen(){ this.scene.start('titleScreen'); }
 }
