@@ -35,13 +35,13 @@ export class TitleScreen extends Phaser.Scene {
 			this.game.config.width/2,
 			this.game.config.height/4,
 			'SPACESHIP SHOOTER',
-			{ font: '3em Arial', fill: 'orange' }
+			{ font: '3em Arial bold', color: 'orange' }
 		).setOrigin(0.5);
 		this.add.text(
 			this.game.config.width/2,
 			this.game.config.height/4 + 30,
 			'GameOff 2020',
-			{ font: '1em Arial' }
+			{ font: '2em Arial' }
 		).setOrigin(0.5);
 		this.add.text(
 			this.game.config.width/2,
