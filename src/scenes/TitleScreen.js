@@ -14,7 +14,7 @@ export class TitleScreen extends Phaser.Scene {
 	setKeyEvents(){
 		/* Start Game! */
 		this.input.keyboard.on('keyup-SPACE', () => {
-			this.scene.start('playGame');
+			this.scene.start('playGame', { playerName: this.playerType[this.playerTypeIter].name });
 		});
 
 		/* Spaceship Selection */

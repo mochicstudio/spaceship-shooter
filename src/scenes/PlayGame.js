@@ -3,12 +3,12 @@ export class PlayGame extends Phaser.Scene {
 		super('playGame');
 	}
 
-	create(){
+	create(data){
 		this.enemies = [];
 		this.lasers = [];
 		this.setKeyEvents();
 		this.setBackground();
-		this.initPlayer();
+		this.initPlayer(data);
 		this.setCollisionEvents();
 		this.spawnEnemy();
 	}
@@ -56,11 +56,11 @@ export class PlayGame extends Phaser.Scene {
 	}
 
 	/* Set initial coordinates for the player. */
-	initPlayer(){
+	initPlayer(data){
 		const playerX = this.game.config.width/2;
 		const playerY = this.game.config.height - 50;
 
-		this.player = this.physics.add.image(0, 0, 'player_blue_one');
+		this.player = this.physics.add.image(0, 0, data.playerName);
 		this.player.setPosition(playerX, playerY, 0, 0);
 	}
 
