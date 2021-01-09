@@ -24,7 +24,8 @@ export class TitleScreen extends Phaser.Scene {
 			else
 				this.playerTypeIter--;
 
-			this.player.setTexture(this.playerType[this.playerTypeIter]);
+			this.player.setTexture(this.playerType[this.playerTypeIter].name);
+			this.playerInfo.setText(this.playerType[this.playerTypeIter].info);
 		});
 
 		this.input.keyboard.on('keyup-RIGHT', () => {
@@ -33,7 +34,8 @@ export class TitleScreen extends Phaser.Scene {
 			else
 				this.playerTypeIter++;
 
-			this.player.setTexture(this.playerType[this.playerTypeIter]);
+			this.player.setTexture(this.playerType[this.playerTypeIter].name);
+			this.playerInfo.setText(this.playerType[this.playerTypeIter].info);
 		});
 	}
 
@@ -63,21 +65,66 @@ export class TitleScreen extends Phaser.Scene {
 			'GameOff 2020',
 			{ font: '2em Arial' }
 		).setOrigin(0.5);
-		this.add.text(
-			this.game.config.width/2,
-			this.game.config.height/4 + 65,
-			'Press Spacebar to Start',
-			{ font: '2em Arial' }
-		).setOrigin(0.5);
 	}
 
 	playerSelection(){
 		this.playerTypeIter = 0;
-		this.playerType = ['player_blue_one', 'player_blue_two', 'player_blue_three'];
+		this.playerType = [
+			{
+				name: 'player_blue_one',
+				info: 'Starter spaceship, shoots a single laser at a time',
+				locked: false
+			},
+			{
+				name: 'player_blue_two',
+				info: 'Middle spaceship, shoots two lasers at a time',
+				locked: true
+			},
+			{
+				name: 'player_blue_three',
+				info: 'Senior spaceship, shoots three lasers at a time',
+				locked: true
+			}
+		];
 		const playerX = this.game.config.width/2;
-		const playerY = this.game.config.height/2 + 250;
+		const playerY = this.game.config.height/2 + 200;
 
-		this.player = this.add.image(0, 0, this.playerType[this.playerTypeIter]);
+		this.add.text(
+			this.game.config.width/2,
+			this.game.config.height/2 + 60,
+			'Choose your Spaceship',
+			{ font: '3em Arial' }
+		).setOrigin(0.5);
+
+		this.add.text(
+			this.game.config.width/2 - 100,
+			this.game.config.height/2 + 110,
+			'< Left Arrow',
+			{ font: '2em Arial' }
+		).setOrigin(0.5);
+
+		this.add.text(
+			this.game.config.width/2 + 100,
+			this.game.config.height/2 + 110,
+			'Right Arrow >',
+			{ font: '2em Arial' }
+		).setOrigin(0.5);
+
+		this.player = this.add.image(0, 0, this.playerType[this.playerTypeIter].name);
 		this.player.setPosition(playerX, playerY, 0, 0);
+
+		this.playerInfo = this.add.text(
+			this.game.config.width/2,
+			this.game.config.height - 200,
+			this.playerType[this.playerTypeIter].info,
+			{ font: '2em Arial' }
+		).setOrigin(0.5);
+
+		this.add.text(
+			this.game.config.width/2,
+			this.game.config.height - 100,
+			'Press Spacebar to Start',
+			{ font: '3em Arial' }
+		).setOrigin(0.5);
 	}
 }
