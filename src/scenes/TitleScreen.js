@@ -8,12 +8,32 @@ export class TitleScreen extends Phaser.Scene {
 		this.setKeyEvents();
 		this.setBackground();
 		this.setTitle();
+		this.playerSelection();
 	}
 
 	setKeyEvents(){
 		/* Start Game! */
 		this.input.keyboard.on('keyup-SPACE', () => {
 			this.scene.start('playGame');
+		});
+
+		/* Spaceship Selection */
+		this.input.keyboard.on('keyup-LEFT', () => {
+			if(this.playerTypeIter == 0)
+				this.playerTypeIter = this.playerType.length-1;
+			else
+				this.playerTypeIter--;
+
+			this.player.setTexture(this.playerType[this.playerTypeIter]);
+		});
+
+		this.input.keyboard.on('keyup-RIGHT', () => {
+			if(this.playerTypeIter == this.playerType.length-1)
+				this.playerTypeIter = 0;
+			else
+				this.playerTypeIter++;
+
+			this.player.setTexture(this.playerType[this.playerTypeIter]);
 		});
 	}
 
@@ -49,5 +69,15 @@ export class TitleScreen extends Phaser.Scene {
 			'Press Spacebar to Start',
 			{ font: '2em Arial' }
 		).setOrigin(0.5);
+	}
+
+	playerSelection(){
+		this.playerTypeIter = 0;
+		this.playerType = ['player_blue_one', 'player_blue_two', 'player_blue_three'];
+		const playerX = this.game.config.width/2;
+		const playerY = this.game.config.height/2 + 250;
+
+		this.player = this.add.image(0, 0, this.playerType[this.playerTypeIter]);
+		this.player.setPosition(playerX, playerY, 0, 0);
 	}
 }
