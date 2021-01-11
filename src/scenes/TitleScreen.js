@@ -8,7 +8,7 @@ export class TitleScreen extends Phaser.Scene {
 		this.setKeyEvents();
 		this.setBackground();
 		this.setTitle();
-		this.playerSelection();
+		this.setPlayerSelection();
 	}
 
 	setKeyEvents(){
@@ -53,21 +53,44 @@ export class TitleScreen extends Phaser.Scene {
 	}
 
 	setTitle(){
-		this.add.text(
-			this.game.config.width/2,
-			this.game.config.height/4,
+		/* Store the title objects on a container */
+		this.titleContainer = this.add.container();
+		const textXAxis = 0;
+		const pixel = 1;
+		const textCenter = 0.5;
+
+		/* We use the constants and variables to set
+		 * relative position on all the childs of the
+		 * container and the container itself.
+		 * This way, they'll never be on top
+		 * of each other. */
+		let gameNamePos = { x: textXAxis, y: 10 };
+		let gameName = this.add.text(
+			gameNamePos.x,
+			gameNamePos.y,
 			'SPACESHIP SHOOTER',
 			{ font: '3em Arial bold', color: 'orange' }
-		).setOrigin(0.5);
-		this.add.text(
-			this.game.config.width/2,
-			this.game.config.height/4 + 30,
+		).setOrigin(textCenter);
+
+		let gameInfoPos = { x: textXAxis, y: gameName.height + pixel };
+		let gameInfo = this.add.text(
+			gameInfoPos.x,
+			gameInfoPos.y,
 			'GameOff 2020',
 			{ font: '2em Arial' }
-		).setOrigin(0.5);
+		).setOrigin(textCenter);
+
+		this.titleContainer.add([gameName, gameInfo]);
+		this.titleContainer.setPosition(this.game.config.width / 2, pixel * 5);
 	}
 
-	playerSelection(){
+	setPlayerSelection(){
+		this.playerSelectionContainer = this.add.container();
+		const textXAxis = 0;
+		const pixel = 1;
+		const textCenter = 0.5;
+		let yAxis = 0;
+
 		this.playerTypeIter = 0;
 		this.playerType = [
 			{
@@ -86,45 +109,61 @@ export class TitleScreen extends Phaser.Scene {
 				locked: true
 			}
 		];
-		const playerX = this.game.config.width/2;
-		const playerY = this.game.config.height/2 + 200;
 
-		this.add.text(
-			this.game.config.width/2,
-			this.game.config.height/2 + 60,
+		/* Same as setTitle() we use the constants and variables to set
+		 * relative position on all the childs of the container and the
+		 * container itself. This way, they'll never be on top of each
+		 * other. Additionally we use the yAxis varaible to move through
+		 * the y axis each component. */
+
+		let textTitle = this.add.text(
+			textXAxis,
+			yAxis,
 			'Choose your Spaceship',
 			{ font: '3em Arial' }
-		).setOrigin(0.5);
+		).setOrigin(textCenter);
 
-		this.add.text(
-			this.game.config.width/2 - 100,
-			this.game.config.height/2 + 110,
+		let moveToSide = textTitle.width / 2;
+		yAxis += textTitle.height + pixel;
+		let textInfoLeft = this.add.text(
+			textXAxis - moveToSide,
+			yAxis,
 			'< Left Arrow',
 			{ font: '2em Arial' }
-		).setOrigin(0.5);
+		).setOrigin(textCenter);
 
-		this.add.text(
-			this.game.config.width/2 + 100,
-			this.game.config.height/2 + 110,
+		let textInfoRight = this.add.text(
+			textXAxis + moveToSide,
+			yAxis,
 			'Right Arrow >',
 			{ font: '2em Arial' }
-		).setOrigin(0.5);
+		).setOrigin(textCenter);
 
+		yAxis += textInfoRight.height + (pixel * 10)
+		const playerPos = {
+			x: this.playerSelectionContainer.width / 2,
+			y: yAxis
+		};
 		this.player = this.add.image(0, 0, this.playerType[this.playerTypeIter].name);
-		this.player.setPosition(playerX, playerY, 0, 0);
+		this.player.setPosition(playerPos.x, playerPos.y);
 
+		yAxis += this.player.height + pixel;
 		this.playerInfo = this.add.text(
-			this.game.config.width/2,
-			this.game.config.height - 200,
+			textXAxis,
+			yAxis,
 			this.playerType[this.playerTypeIter].info,
 			{ font: '2em Arial' }
-		).setOrigin(0.5);
+		).setOrigin(textCenter);
 
-		this.add.text(
-			this.game.config.width/2,
-			this.game.config.height - 100,
+		yAxis += this.playerInfo.height + (pixel * 50);
+		let textStart = this.add.text(
+			textXAxis,
+			yAxis,
 			'Press Spacebar to Start',
 			{ font: '3em Arial' }
-		).setOrigin(0.5);
+		).setOrigin(textCenter);
+
+		this.playerSelectionContainer.add([textTitle, textInfoLeft, textInfoRight, this.player, this.playerInfo, textStart]);
+		this.playerSelectionContainer.setPosition(this.game.config.width / 2, this.game.config.height / 2);
 	}
 }

@@ -42,7 +42,7 @@ export class MochicStudio extends Phaser.Scene {
 		/* Move the Title */
 		timeline.add({
 			targets: this.title,
-			y: this.game.config.height - 300,
+			y: this.game.config.height / 2 + ( this.logo.height / 2 ) + 10,
 			ease: 'Cubic',
 			duration: 1000,
 			repeat: 0,
