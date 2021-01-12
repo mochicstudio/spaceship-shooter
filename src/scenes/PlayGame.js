@@ -68,11 +68,11 @@ export class PlayGame extends Phaser.Scene {
 	playerAttack(){
 		const playerX = this.player.x;
 		const playerY = this.player.y - 25;
-		this.lasers.push(this.physics.add.image(playerX, playerY, 'player_laser'));
+		this.lasers.push(this.physics.add.image(playerX, playerY, 'player_laser_blue'));
 	}
 
 	spawnEnemy(){
-		this.enemies.push(this.physics.add.image(this.getRandomX(), 0, 'enemy_black_one'));
+		this.enemies.push(this.physics.add.image(this.getRandomX(), 0, 'enemy_blue_one'));
 	}
 
 	setKeyEvents(){
