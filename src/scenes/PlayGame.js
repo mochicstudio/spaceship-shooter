@@ -22,9 +22,11 @@ export class PlayGame extends Phaser.Scene {
 		let seconds = Math.round(this.miliseconds / 1000);
 
 		if(this.frameCount === 0 && seconds % this.xSeconds === 0){
+			this.score.setText(seconds);
 			this.frameCount++;
 			this.spawnEnemies();
 		}else if(seconds % this.xSeconds !== 0){
+			this.score.setText(seconds);
 			this.frameCount = 0;
 		}
 
@@ -41,7 +43,9 @@ export class PlayGame extends Phaser.Scene {
 
 		this.enemies.forEach(enemy => {
 			enemy.setPosition(enemy.x, enemy.y + 5, 0, 0);
-			if(enemy.y > this.game.config.height) enemy.destroy();
+			if(enemy.y > this.game.config.height){
+				enemy.destroy();
+			}
 		});
 
 		this.lasers.forEach(laser => {
@@ -69,7 +73,7 @@ export class PlayGame extends Phaser.Scene {
 	}
 
 	setScoreText(){
-		this.score = this.add.text(20, 20, '0', { font: '2em Arial', color: 'yellow' });
+		this.score = this.add.text(20, 20, 0, { font: '2em Arial', color: 'yellow' });
 	}
 
 	/* Set initial coordinates for the player. */
