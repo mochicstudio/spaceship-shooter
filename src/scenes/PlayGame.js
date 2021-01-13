@@ -22,7 +22,7 @@ export class PlayGame extends Phaser.Scene {
 
 		if(this.frameCount === 0 && seconds % this.xSeconds === 0){
 			this.frameCount++;
-			this.spawnEnemy();
+			this.spawnEnemies();
 		}else if(seconds % this.xSeconds !== 0){
 			this.frameCount = 0;
 		}
@@ -83,7 +83,7 @@ export class PlayGame extends Phaser.Scene {
 		this.lasers.push(this.physics.add.image(playerX, playerY, 'player_laser_blue'));
 	}
 
-	spawnEnemy(){
+	spawnEnemies(){
 		this.enemies.push(this.physics.add.image(this.getRandomX(), 0, 'enemy_blue_one'));
 		this.enemies.push(this.physics.add.image(this.getRandomX(), 0, 'enemy_blue_two'));
 		this.enemies.push(this.physics.add.image(this.getRandomX(), 0, 'enemy_blue_three'));
