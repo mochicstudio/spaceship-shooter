@@ -9,6 +9,7 @@ export class PlayGame extends Phaser.Scene {
 		this.miliseconds = 0;
 		this.frameCount = 0;
 		this.xSeconds = 3;
+		this.scorePerShipKilled = 25;
 		this.setKeyEvents();
 		this.setBackground();
 		this.setScoreText();
@@ -22,11 +23,11 @@ export class PlayGame extends Phaser.Scene {
 		let seconds = Math.round(this.miliseconds / 1000);
 
 		if(this.frameCount === 0 && seconds % this.xSeconds === 0){
-			this.score.setText(seconds);
+			this.score.setText(Number(this.score.text) + seconds);
 			this.frameCount++;
 			this.spawnEnemies();
 		}else if(seconds % this.xSeconds !== 0){
-			this.score.setText(seconds);
+			this.score.setText(Number(this.score.text) + seconds);
 			this.frameCount = 0;
 		}
 
@@ -43,9 +44,7 @@ export class PlayGame extends Phaser.Scene {
 
 		this.enemies.forEach(enemy => {
 			enemy.setPosition(enemy.x, enemy.y + 5, 0, 0);
-			if(enemy.y > this.game.config.height){
-				enemy.destroy();
-			}
+			if(enemy.y > this.game.config.height) enemy.destroy();
 		});
 
 		this.lasers.forEach(laser => {
@@ -111,6 +110,7 @@ export class PlayGame extends Phaser.Scene {
 	setCollisionEvents(){
 		/* Enemy Dies */
 		this.physics.add.collider(this.lasers, this.enemies, (laser, enemy) => {
+			this.score.setText(Number(this.score.text) + this.scorePerShipKilled);
 			laser.destroy();
 			enemy.destroy();
 		});
