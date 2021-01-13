@@ -11,6 +11,7 @@ export class PlayGame extends Phaser.Scene {
 		this.xSeconds = 3;
 		this.setKeyEvents();
 		this.setBackground();
+		this.setScoreText();
 		this.initPlayer(data);
 		this.setCollisionEvents();
 	}
@@ -65,6 +66,10 @@ export class PlayGame extends Phaser.Scene {
 				this.add.image(x, y, 'background').setDisplayOrigin(0, 0);
 			}
 		}
+	}
+
+	setScoreText(){
+		this.score = this.add.text(20, 20, '0', { font: '2em Arial', color: 'yellow' });
 	}
 
 	/* Set initial coordinates for the player. */
