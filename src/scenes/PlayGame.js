@@ -9,8 +9,10 @@ export class PlayGame extends Phaser.Scene {
 		this.miliseconds = 0;
 		this.frameCount = 0;
 		this.xSeconds = 3;
+		this.scorePerShipKilled = 25;
 		this.setKeyEvents();
 		this.setBackground();
+		this.setScoreText();
 		this.initPlayer(data);
 		this.setCollisionEvents();
 	}
@@ -21,9 +23,11 @@ export class PlayGame extends Phaser.Scene {
 		let seconds = Math.round(this.miliseconds / 1000);
 
 		if(this.frameCount === 0 && seconds % this.xSeconds === 0){
+			this.score.setText(Number(this.score.text) + seconds);
 			this.frameCount++;
-			this.spawnEnemy();
+			this.spawnEnemies();
 		}else if(seconds % this.xSeconds !== 0){
+			this.score.setText(Number(this.score.text) + seconds);
 			this.frameCount = 0;
 		}
 
@@ -67,6 +71,10 @@ export class PlayGame extends Phaser.Scene {
 		}
 	}
 
+	setScoreText(){
+		this.score = this.add.text(20, 20, 0, { font: '2em Arial', color: 'yellow' });
+	}
+
 	/* Set initial coordinates for the player. */
 	initPlayer(data){
 		const playerX = this.game.config.width/2;
@@ -83,7 +91,7 @@ export class PlayGame extends Phaser.Scene {
 		this.lasers.push(this.physics.add.image(playerX, playerY, 'player_laser_blue'));
 	}
 
-	spawnEnemy(){
+	spawnEnemies(){
 		this.enemies.push(this.physics.add.image(this.getRandomX(), 0, 'enemy_blue_one'));
 		this.enemies.push(this.physics.add.image(this.getRandomX(), 0, 'enemy_blue_two'));
 		this.enemies.push(this.physics.add.image(this.getRandomX(), 0, 'enemy_blue_three'));
@@ -102,6 +110,7 @@ export class PlayGame extends Phaser.Scene {
 	setCollisionEvents(){
 		/* Enemy Dies */
 		this.physics.add.collider(this.lasers, this.enemies, (laser, enemy) => {
+			this.score.setText(Number(this.score.text) + this.scorePerShipKilled);
 			laser.destroy();
 			enemy.destroy();
 		});
