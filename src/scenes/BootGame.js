@@ -14,6 +14,8 @@ import player_laser_blue from '../assets/images/png/Lasers/laserBlue16.png';
 import player_laser_green from '../assets/images/png/Lasers/laserGreen10.png';
 import player_laser_red from '../assets/images/png/Lasers/laserRed16.png';
 import enemy_blue_one from '../assets/images/png/Enemies/enemyBlue1.png';
+import enemy_blue_two from '../assets/images/png/Enemies/enemyBlue2.png';
+import enemy_blue_three from '../assets/images/png/Enemies/enemyBlue3.png';
 
 export class BootGame extends Phaser.Scene {
 	constructor(){
@@ -37,6 +39,8 @@ export class BootGame extends Phaser.Scene {
 		this.load.image('player_laser_green', player_laser_green);
 		this.load.image('player_laser_red', player_laser_red);
 		this.load.image('enemy_blue_one', enemy_blue_one);
+		this.load.image('enemy_blue_two', enemy_blue_two);
+		this.load.image('enemy_blue_three', enemy_blue_three);
 	}
 
 	create(){
