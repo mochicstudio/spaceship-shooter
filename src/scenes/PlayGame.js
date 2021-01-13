@@ -6,14 +6,27 @@ export class PlayGame extends Phaser.Scene {
 	create(data){
 		this.enemies = [];
 		this.lasers = [];
+		this.miliseconds = 0;
+		this.frameCount = 0;
+		this.xSeconds = 3;
 		this.setKeyEvents();
 		this.setBackground();
 		this.initPlayer(data);
 		this.setCollisionEvents();
-		this.spawnEnemy();
 	}
 
-	update(){
+	update(time, delta){
+		/* Spawn enemies every x seconds */
+		this.miliseconds += delta;
+		let seconds = Math.round(this.miliseconds / 1000);
+
+		if(this.frameCount === 0 && seconds % this.xSeconds === 0){
+			this.frameCount++;
+			this.spawnEnemy();
+		}else if(seconds % this.xSeconds !== 0){
+			this.frameCount = 0;
+		}
+
 		/* Move the player */
 		if(this.left.isDown){
 			if(this.player.x > 0)
@@ -72,6 +85,8 @@ export class PlayGame extends Phaser.Scene {
 
 	spawnEnemy(){
 		this.enemies.push(this.physics.add.image(this.getRandomX(), 0, 'enemy_blue_one'));
+		this.enemies.push(this.physics.add.image(this.getRandomX(), 0, 'enemy_blue_two'));
+		this.enemies.push(this.physics.add.image(this.getRandomX(), 0, 'enemy_blue_three'));
 	}
 
 	setKeyEvents(){
