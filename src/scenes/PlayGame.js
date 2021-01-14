@@ -145,12 +145,29 @@ export class PlayGame extends Phaser.Scene {
 		this.laser = 'player_laser_' + color;
 	}
 
+	/* Checks if the saler and the enemy spaceship are the same color
+	 * and return true or false. */
+	isSameColor(laserTextureStr, enemyTextureStr){
+		const underscore = '_';
+		const laserTextureArray = laserTextureStr.split(underscore);
+		const enemyTextureArray = enemyTextureStr.split(underscore);
+
+		if(laserTextureArray[2] == enemyTextureArray[1])
+			return true;
+		else
+			return false;
+	}
+
 	setCollisionEvents(){
 		/* Enemy Dies */
 		this.physics.add.collider(this.lasers, this.enemies, (laser, enemy) => {
-			this.score.setText(Number(this.score.text) + this.scorePerShipKilled);
-			laser.destroy();
-			enemy.destroy();
+			/* If the enemy spaceship and the laser are the same color, then
+			 * kill the enemy. */
+			if(this.isSameColor(laser.texture.key, enemy.texture.key)){
+				this.score.setText(Number(this.score.text) + this.scorePerShipKilled);
+				laser.destroy();
+				enemy.destroy();
+			}
 		});
 	}
 }
