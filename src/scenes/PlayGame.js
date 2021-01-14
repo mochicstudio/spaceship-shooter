@@ -95,9 +95,31 @@ export class PlayGame extends Phaser.Scene {
 	}
 
 	spawnEnemies(){
-		this.enemies.push(this.physics.add.image(this.getRandomX(), 0, 'enemy_blue_one'));
-		this.enemies.push(this.physics.add.image(this.getRandomX(), 0, 'enemy_blue_two'));
-		this.enemies.push(this.physics.add.image(this.getRandomX(), 0, 'enemy_blue_three'));
+		this.enemies.push(this.physics.add.image(this.getRandomX(), 0, this.getRandomEnemy()));
+		this.enemies.push(this.physics.add.image(this.getRandomX(), 0, this.getRandomEnemy()));
+		this.enemies.push(this.physics.add.image(this.getRandomX(), 0, this.getRandomEnemy()));
+	}
+
+	getRandomEnemy(){
+		let enemies = [
+			'enemy_blue_one',
+			'enemy_blue_two',
+			'enemy_blue_three',
+			'enemy_blue_four',
+			'enemy_blue_five',
+			'enemy_red_one',
+			'enemy_red_two',
+			'enemy_red_three',
+			'enemy_red_four',
+			'enemy_red_five',
+			'enemy_green_one',
+			'enemy_green_two',
+			'enemy_green_three',
+			'enemy_green_four',
+			'enemy_green_five'
+		];
+
+		return enemies[Math.floor(Math.random() * Math.floor(enemies.length))];
 	}
 
 	setKeyEvents(){
