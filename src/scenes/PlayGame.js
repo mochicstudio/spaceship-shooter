@@ -86,7 +86,8 @@ export class PlayGame extends Phaser.Scene {
 		this.playerType = data.playerType;
 	}
 
-	/* Launch Laser to attack enemies */
+	/* Player Attack.
+	 * Launch Laser to attack enemies */
 	playerAttack(){
 		const playerX = this.player.x;
 		const playerY = this.player.y - 25;
@@ -105,10 +106,7 @@ export class PlayGame extends Phaser.Scene {
 		this.left = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
 		this.right = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
 
-		/* Player Attack */
-		this.input.keyboard.on('keydown-SPACE', () => {
-			this.playerAttack();
-		});
+		this.input.keyboard.on('keydown-SPACE', () => { this.playerAttack(); });
 
 		this.input.keyboard.on('keydown-Q', () => { this.changeSpaceshipColor('blue'); });
 		this.input.keyboard.on('keydown-W', () => { this.changeSpaceshipColor('red'); });
