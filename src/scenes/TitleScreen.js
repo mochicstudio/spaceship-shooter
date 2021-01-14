@@ -22,10 +22,8 @@ export class TitleScreen extends Phaser.Scene {
 		});
 
 		/* Spaceship Selection */
-		this.input.keyboard.on('keyup-LEFT', () => { this.changeToLeft(); });
-		this.input.keyboard.on('keyup-RIGHT', () => { this.changeToRight(); });
-		this.input.keyboard.on('keyup-A', () => { this.changeToLeft(); });
-		this.input.keyboard.on('keyup-D', () => { this.changeToRight(); });
+		this.input.keyboard.on('keyup-J', () => { this.changeToLeft(); });
+		this.input.keyboard.on('keyup-K', () => { this.changeToRight(); });
 	}
 
 	changeToLeft(){
@@ -143,14 +141,14 @@ export class TitleScreen extends Phaser.Scene {
 		let textInfoLeft = this.add.text(
 			textXAxis - moveToSide,
 			yAxis,
-			'< Left Arrow or A',
+			'< J',
 			{ font: '2em Arial' }
 		).setOrigin(textCenter);
 
 		let textInfoRight = this.add.text(
 			textXAxis + moveToSide,
 			yAxis,
-			'Right Arrow or D >',
+			'K >',
 			{ font: '2em Arial' }
 		).setOrigin(textCenter);
 

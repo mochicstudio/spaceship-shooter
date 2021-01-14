@@ -32,12 +32,12 @@ export class PlayGame extends Phaser.Scene {
 		}
 
 		/* Move the player */
-		if(this.left.isDown || this.leftArrow.isDown){
+		if(this.left.isDown){
 			if(this.player.x > 0)
 				this.player.setX(this.player.x - 25);
 		}
 		/* Move the player */
-		if(this.right.isDown || this.rightArrow.isDown){
+		if(this.right.isDown){
 			if(this.player.x < this.game.config.width)
 				this.player.setX(this.player.x + 25);
 		}
@@ -101,10 +101,8 @@ export class PlayGame extends Phaser.Scene {
 	}
 
 	setKeyEvents(){
-		this.leftArrow = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
-		this.rightArrow = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
-		this.left = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
-		this.right = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+		this.left = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.J);
+		this.right = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.K);
 
 		this.input.keyboard.on('keydown-SPACE', () => { this.playerAttack(); });
 
