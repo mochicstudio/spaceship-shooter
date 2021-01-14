@@ -145,9 +145,9 @@ export class PlayGame extends Phaser.Scene {
 		this.laser = 'player_laser_' + color;
 	}
 
-	/* Checks if the saler and the enemy spaceship are the same color
+	/* Checks if the laser and the enemy spaceship are the same color
 	 * and return true or false. */
-	isSameColor(laserTextureStr, enemyTextureStr){
+	isLaserAndEnemySameColor(laserTextureStr, enemyTextureStr){
 		const underscore = '_';
 		const laserTextureArray = laserTextureStr.split(underscore);
 		const enemyTextureArray = enemyTextureStr.split(underscore);
@@ -158,15 +158,37 @@ export class PlayGame extends Phaser.Scene {
 			return false;
 	}
 
+	/* Checks if the player and the enemy spaceship are the same color
+	 * and return true or false. */
+	isPlayerAndEnemySameColor(playerTextureStr, enemyTextureStr){
+		const underscore = '_';
+		const playerTextureArray = playerTextureStr.split(underscore);
+		const enemyTextureArray = enemyTextureStr.split(underscore);
+
+		if(playerTextureArray[1] == enemyTextureArray[1])
+			return true;
+		else
+			return false;
+	}
+
 	setCollisionEvents(){
 		/* Enemy Dies */
 		this.physics.add.collider(this.lasers, this.enemies, (laser, enemy) => {
 			/* If the enemy spaceship and the laser are the same color, then
 			 * kill the enemy. */
-			if(this.isSameColor(laser.texture.key, enemy.texture.key)){
+			if(this.isLaserAndEnemySameColor(laser.texture.key, enemy.texture.key)){
 				this.score.setText(Number(this.score.text) + this.scorePerShipKilled);
 				laser.destroy();
 				enemy.destroy();
+			}
+		});
+
+		this.physics.add.collider(this.player, this.enemies, (player, enemy) => {
+			/* If the enemy spaceship and the player are the same color, then
+			 * kill the enemy and kill the player. */
+			if(this.isPlayerAndEnemySameColor(player.texture.key, enemy.texture.key)){
+				enemy.destroy();
+				console.log("player has less hp");
 			}
 		});
 	}
