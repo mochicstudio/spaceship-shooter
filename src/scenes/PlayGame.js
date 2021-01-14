@@ -83,6 +83,7 @@ export class PlayGame extends Phaser.Scene {
 		this.player = this.physics.add.image(0, 0, data.playerName);
 		this.player.setPosition(playerX, playerY, 0, 0);
 		this.laser = data.laserName;
+		this.playerType = data.playerType;
 	}
 
 	/* Launch Laser to attack enemies */
@@ -111,15 +112,33 @@ export class PlayGame extends Phaser.Scene {
 
 		/* Change Spaceship and Laser Color */
 		this.input.keyboard.on('keydown-Q', () => {
-			this.player.setTexture('player_blue_one');
+			if(this.playerType == 'starter')
+				this.player.setTexture('player_blue_one');
+			else if(this.playerType == 'middle')
+				this.player.setTexture('player_blue_two');
+			else if(this.playerType == 'senior')
+				this.player.setTexture('player_blue_three');
+
 			this.laser = 'player_laser_blue';
 		});
 		this.input.keyboard.on('keydown-W', () => {
-			this.player.setTexture('player_red_one');
+			if(this.playerType == 'starter')
+				this.player.setTexture('player_red_one');
+			else if(this.playerType == 'middle')
+				this.player.setTexture('player_red_two');
+			else if(this.playerType == 'senior')
+				this.player.setTexture('player_red_three');
+
 			this.laser = 'player_laser_red';
 		});
 		this.input.keyboard.on('keydown-E', () => {
-			this.player.setTexture('player_green_one');
+			if(this.playerType == 'starter')
+				this.player.setTexture('player_green_one');
+			else if(this.playerType == 'middle')
+				this.player.setTexture('player_green_two');
+			else if(this.playerType == 'senior')
+				this.player.setTexture('player_green_three');
+
 			this.laser = 'player_laser_green';
 		});
 	}
