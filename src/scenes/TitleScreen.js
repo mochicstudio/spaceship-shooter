@@ -21,25 +21,30 @@ export class TitleScreen extends Phaser.Scene {
 		});
 
 		/* Spaceship Selection */
-		this.input.keyboard.on('keyup-LEFT', () => {
-			if(this.playerTypeIter == 0)
-				this.playerTypeIter = this.playerType.length-1;
-			else
-				this.playerTypeIter--;
+		this.input.keyboard.on('keyup-LEFT', () => { this.changeToLeft(); });
+		this.input.keyboard.on('keyup-RIGHT', () => { this.changeToRight(); });
+		this.input.keyboard.on('keyup-A', () => { this.changeToLeft(); });
+		this.input.keyboard.on('keyup-D', () => { this.changeToRight(); });
+	}
 
-			this.player.setTexture(this.playerType[this.playerTypeIter].name);
-			this.playerInfo.setText(this.playerType[this.playerTypeIter].info);
-		});
+	changeToLeft(){
+		if(this.playerTypeIter == 0)
+			this.playerTypeIter = this.playerType.length-1;
+		else
+			this.playerTypeIter--;
 
-		this.input.keyboard.on('keyup-RIGHT', () => {
-			if(this.playerTypeIter == this.playerType.length-1)
-				this.playerTypeIter = 0;
-			else
-				this.playerTypeIter++;
+		this.player.setTexture(this.playerType[this.playerTypeIter].name);
+		this.playerInfo.setText(this.playerType[this.playerTypeIter].info);
+	}
 
-			this.player.setTexture(this.playerType[this.playerTypeIter].name);
-			this.playerInfo.setText(this.playerType[this.playerTypeIter].info);
-		});
+	changeToRight(){
+		if(this.playerTypeIter == this.playerType.length-1)
+			this.playerTypeIter = 0;
+		else
+			this.playerTypeIter++;
+
+		this.player.setTexture(this.playerType[this.playerTypeIter].name);
+		this.playerInfo.setText(this.playerType[this.playerTypeIter].info);
 	}
 
 	/* Instead of scaling one image, we set an image each size step.
@@ -134,14 +139,14 @@ export class TitleScreen extends Phaser.Scene {
 		let textInfoLeft = this.add.text(
 			textXAxis - moveToSide,
 			yAxis,
-			'< Left Arrow',
+			'< Left Arrow or A',
 			{ font: '2em Arial' }
 		).setOrigin(textCenter);
 
 		let textInfoRight = this.add.text(
 			textXAxis + moveToSide,
 			yAxis,
-			'Right Arrow >',
+			'Right Arrow or D >',
 			{ font: '2em Arial' }
 		).setOrigin(textCenter);
 
