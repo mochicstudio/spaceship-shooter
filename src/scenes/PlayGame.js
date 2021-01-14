@@ -110,37 +110,21 @@ export class PlayGame extends Phaser.Scene {
 			this.playerAttack();
 		});
 
-		/* Change Spaceship and Laser Color */
-		this.input.keyboard.on('keydown-Q', () => {
-			if(this.playerType == 'starter')
-				this.player.setTexture('player_blue_one');
-			else if(this.playerType == 'middle')
-				this.player.setTexture('player_blue_two');
-			else if(this.playerType == 'senior')
-				this.player.setTexture('player_blue_three');
+		this.input.keyboard.on('keydown-Q', () => { this.changeSpaceshipColor('blue'); });
+		this.input.keyboard.on('keydown-W', () => { this.changeSpaceshipColor('red'); });
+		this.input.keyboard.on('keydown-E', () => { this.changeSpaceshipColor('green'); });
+	}
 
-			this.laser = 'player_laser_blue';
-		});
-		this.input.keyboard.on('keydown-W', () => {
-			if(this.playerType == 'starter')
-				this.player.setTexture('player_red_one');
-			else if(this.playerType == 'middle')
-				this.player.setTexture('player_red_two');
-			else if(this.playerType == 'senior')
-				this.player.setTexture('player_red_three');
+	/* Change Spaceship and Laser Color */
+	changeSpaceshipColor(color){
+		if(this.playerType == 'starter')
+			this.player.setTexture('player_' + color + '_one');
+		else if(this.playerType == 'middle')
+			this.player.setTexture('player_' + color + '_two');
+		else if(this.playerType == 'senior')
+			this.player.setTexture('player_' + color + '_three');
 
-			this.laser = 'player_laser_red';
-		});
-		this.input.keyboard.on('keydown-E', () => {
-			if(this.playerType == 'starter')
-				this.player.setTexture('player_green_one');
-			else if(this.playerType == 'middle')
-				this.player.setTexture('player_green_two');
-			else if(this.playerType == 'senior')
-				this.player.setTexture('player_green_three');
-
-			this.laser = 'player_laser_green';
-		});
+		this.laser = 'player_laser_' + color;
 	}
 
 	setCollisionEvents(){
