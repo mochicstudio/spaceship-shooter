@@ -32,12 +32,12 @@ export class PlayGame extends Phaser.Scene {
 		}
 
 		/* Move the player */
-		if(this.left.isDown){
+		if(this.left.isDown || this.leftArrow.isDown){
 			if(this.player.x > 0)
 				this.player.setX(this.player.x - 25);
 		}
 		/* Move the player */
-		if(this.right.isDown){
+		if(this.right.isDown || this.rightArrow.isDown){
 			if(this.player.x < this.game.config.width)
 				this.player.setX(this.player.x + 25);
 		}
@@ -82,13 +82,14 @@ export class PlayGame extends Phaser.Scene {
 
 		this.player = this.physics.add.image(0, 0, data.playerName);
 		this.player.setPosition(playerX, playerY, 0, 0);
+		this.laser = data.laserName;
 	}
 
 	/* Launch Laser to attack enemies */
 	playerAttack(){
 		const playerX = this.player.x;
 		const playerY = this.player.y - 25;
-		this.lasers.push(this.physics.add.image(playerX, playerY, 'player_laser_blue'));
+		this.lasers.push(this.physics.add.image(playerX, playerY, this.laser));
 	}
 
 	spawnEnemies(){
@@ -98,12 +99,31 @@ export class PlayGame extends Phaser.Scene {
 	}
 
 	setKeyEvents(){
-		this.left = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
-		this.right = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+		this.leftArrow = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
+		this.rightArrow = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+		this.left = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+		this.right = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
 
 		/* Player Attack */
 		this.input.keyboard.on('keydown-SPACE', () => {
 			this.playerAttack();
+		});
+
+		/* Change Spaceship and Laser Color */
+		this.input.keyboard.on('keydown-Q', () => {
+			console.log('one pressed');
+			this.player.setTexture('player_blue_one');
+			this.laser = 'player_laser_blue';
+		});
+		this.input.keyboard.on('keydown-W', () => {
+			console.log('two pressed');
+			this.player.setTexture('player_red_one');
+			this.laser = 'player_laser_red';
+		});
+		this.input.keyboard.on('keydown-E', () => {
+			console.log('three pressed');
+			this.player.setTexture('player_green_one');
+			this.laser = 'player_laser_green';
 		});
 	}
 
