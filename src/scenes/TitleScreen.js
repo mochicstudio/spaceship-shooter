@@ -14,7 +14,10 @@ export class TitleScreen extends Phaser.Scene {
 	setKeyEvents(){
 		/* Start Game! */
 		this.input.keyboard.on('keyup-SPACE', () => {
-			this.scene.start('playGame', { playerName: this.playerType[this.playerTypeIter].name });
+			this.scene.start('playGame', {
+				playerName: this.playerType[this.playerTypeIter].name,
+				laserName: this.playerType[this.playerTypeIter].laser
+			});
 		});
 
 		/* Spaceship Selection */
@@ -95,16 +98,19 @@ export class TitleScreen extends Phaser.Scene {
 		this.playerType = [
 			{
 				name: 'player_blue_one',
+				laser: 'player_laser_blue',
 				info: 'Starter spaceship, shoots a single laser at a time',
 				locked: false
 			},
 			{
 				name: 'player_blue_two',
+				laser: 'player_laser_blue',
 				info: 'Middle spaceship, shoots two lasers at a time',
 				locked: true
 			},
 			{
 				name: 'player_blue_three',
+				laser: 'player_laser_blue',
 				info: 'Senior spaceship, shoots three lasers at a time',
 				locked: true
 			}
