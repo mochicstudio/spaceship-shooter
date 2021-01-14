@@ -82,37 +82,114 @@ export class PlayGame extends Phaser.Scene {
 
 		this.player = this.physics.add.image(0, 0, data.playerName);
 		this.player.setPosition(playerX, playerY, 0, 0);
+		this.laser = data.laserName;
+		this.playerType = data.playerType;
 	}
 
-	/* Launch Laser to attack enemies */
+	/* Player Attack.
+	 * Launch Laser to attack enemies */
 	playerAttack(){
 		const playerX = this.player.x;
 		const playerY = this.player.y - 25;
-		this.lasers.push(this.physics.add.image(playerX, playerY, 'player_laser_blue'));
+		this.lasers.push(this.physics.add.image(playerX, playerY, this.laser));
 	}
 
 	spawnEnemies(){
-		this.enemies.push(this.physics.add.image(this.getRandomX(), 0, 'enemy_blue_one'));
-		this.enemies.push(this.physics.add.image(this.getRandomX(), 0, 'enemy_blue_two'));
-		this.enemies.push(this.physics.add.image(this.getRandomX(), 0, 'enemy_blue_three'));
+		this.enemies.push(this.physics.add.image(this.getRandomX(), 0, this.getRandomEnemy()));
+		this.enemies.push(this.physics.add.image(this.getRandomX(), 0, this.getRandomEnemy()));
+		this.enemies.push(this.physics.add.image(this.getRandomX(), 0, this.getRandomEnemy()));
+	}
+
+	getRandomEnemy(){
+		let enemies = [
+			'enemy_blue_one',
+			'enemy_blue_two',
+			'enemy_blue_three',
+			'enemy_blue_four',
+			'enemy_blue_five',
+			'enemy_red_one',
+			'enemy_red_two',
+			'enemy_red_three',
+			'enemy_red_four',
+			'enemy_red_five',
+			'enemy_green_one',
+			'enemy_green_two',
+			'enemy_green_three',
+			'enemy_green_four',
+			'enemy_green_five'
+		];
+
+		return enemies[Math.floor(Math.random() * Math.floor(enemies.length))];
 	}
 
 	setKeyEvents(){
-		this.left = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
-		this.right = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+		this.left = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.J);
+		this.right = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.K);
 
-		/* Player Attack */
-		this.input.keyboard.on('keydown-SPACE', () => {
-			this.playerAttack();
-		});
+		this.input.keyboard.on('keydown-SPACE', () => { this.playerAttack(); });
+
+		this.input.keyboard.on('keydown-Q', () => { this.changeSpaceshipColor('blue'); });
+		this.input.keyboard.on('keydown-W', () => { this.changeSpaceshipColor('red'); });
+		this.input.keyboard.on('keydown-E', () => { this.changeSpaceshipColor('green'); });
+	}
+
+	/* Change Spaceship and Laser Color */
+	changeSpaceshipColor(color){
+		if(this.playerType == 'starter')
+			this.player.setTexture('player_' + color + '_one');
+		else if(this.playerType == 'middle')
+			this.player.setTexture('player_' + color + '_two');
+		else if(this.playerType == 'senior')
+			this.player.setTexture('player_' + color + '_three');
+
+		this.laser = 'player_laser_' + color;
+	}
+
+	/* Checks if the laser and the enemy spaceship are the same color
+	 * and return true or false. */
+	isLaserAndEnemySameColor(laserTextureStr, enemyTextureStr){
+		const underscore = '_';
+		const laserTextureArray = laserTextureStr.split(underscore);
+		const enemyTextureArray = enemyTextureStr.split(underscore);
+
+		if(laserTextureArray[2] == enemyTextureArray[1])
+			return true;
+		else
+			return false;
+	}
+
+	/* Checks if the player and the enemy spaceship are the same color
+	 * and return true or false. */
+	isPlayerAndEnemySameColor(playerTextureStr, enemyTextureStr){
+		const underscore = '_';
+		const playerTextureArray = playerTextureStr.split(underscore);
+		const enemyTextureArray = enemyTextureStr.split(underscore);
+
+		if(playerTextureArray[1] == enemyTextureArray[1])
+			return true;
+		else
+			return false;
 	}
 
 	setCollisionEvents(){
 		/* Enemy Dies */
 		this.physics.add.collider(this.lasers, this.enemies, (laser, enemy) => {
-			this.score.setText(Number(this.score.text) + this.scorePerShipKilled);
-			laser.destroy();
-			enemy.destroy();
+			/* If the enemy spaceship and the laser are the same color, then
+			 * kill the enemy. */
+			if(this.isLaserAndEnemySameColor(laser.texture.key, enemy.texture.key)){
+				this.score.setText(Number(this.score.text) + this.scorePerShipKilled);
+				laser.destroy();
+				enemy.destroy();
+			}
+		});
+
+		this.physics.add.collider(this.player, this.enemies, (player, enemy) => {
+			/* If the enemy spaceship and the player are the same color, then
+			 * kill the enemy and kill the player. */
+			if(this.isPlayerAndEnemySameColor(player.texture.key, enemy.texture.key)){
+				enemy.destroy();
+				console.log("player has less hp");
+			}
 		});
 	}
 }

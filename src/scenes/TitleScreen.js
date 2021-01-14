@@ -14,29 +14,36 @@ export class TitleScreen extends Phaser.Scene {
 	setKeyEvents(){
 		/* Start Game! */
 		this.input.keyboard.on('keyup-SPACE', () => {
-			this.scene.start('playGame', { playerName: this.playerType[this.playerTypeIter].name });
+			this.scene.start('playGame', {
+				playerName: this.playerType[this.playerTypeIter].name,
+				laserName: this.playerType[this.playerTypeIter].laser,
+				playerType: this.playerType[this.playerTypeIter].type
+			});
 		});
 
 		/* Spaceship Selection */
-		this.input.keyboard.on('keyup-LEFT', () => {
-			if(this.playerTypeIter == 0)
-				this.playerTypeIter = this.playerType.length-1;
-			else
-				this.playerTypeIter--;
+		this.input.keyboard.on('keyup-J', () => { this.changeToLeft(); });
+		this.input.keyboard.on('keyup-K', () => { this.changeToRight(); });
+	}
 
-			this.player.setTexture(this.playerType[this.playerTypeIter].name);
-			this.playerInfo.setText(this.playerType[this.playerTypeIter].info);
-		});
+	changeToLeft(){
+		if(this.playerTypeIter == 0)
+			this.playerTypeIter = this.playerType.length-1;
+		else
+			this.playerTypeIter--;
 
-		this.input.keyboard.on('keyup-RIGHT', () => {
-			if(this.playerTypeIter == this.playerType.length-1)
-				this.playerTypeIter = 0;
-			else
-				this.playerTypeIter++;
+		this.player.setTexture(this.playerType[this.playerTypeIter].name);
+		this.playerInfo.setText(this.playerType[this.playerTypeIter].info);
+	}
 
-			this.player.setTexture(this.playerType[this.playerTypeIter].name);
-			this.playerInfo.setText(this.playerType[this.playerTypeIter].info);
-		});
+	changeToRight(){
+		if(this.playerTypeIter == this.playerType.length-1)
+			this.playerTypeIter = 0;
+		else
+			this.playerTypeIter++;
+
+		this.player.setTexture(this.playerType[this.playerTypeIter].name);
+		this.playerInfo.setText(this.playerType[this.playerTypeIter].info);
 	}
 
 	/* Instead of scaling one image, we set an image each size step.
@@ -95,16 +102,22 @@ export class TitleScreen extends Phaser.Scene {
 		this.playerType = [
 			{
 				name: 'player_blue_one',
+				type: 'starter',
+				laser: 'player_laser_blue',
 				info: 'Starter spaceship, shoots a single laser at a time',
 				locked: false
 			},
 			{
 				name: 'player_blue_two',
+				type: 'middle',
+				laser: 'player_laser_blue',
 				info: 'Middle spaceship, shoots two lasers at a time',
 				locked: true
 			},
 			{
 				name: 'player_blue_three',
+				type: 'senior',
+				laser: 'player_laser_blue',
 				info: 'Senior spaceship, shoots three lasers at a time',
 				locked: true
 			}
@@ -128,14 +141,14 @@ export class TitleScreen extends Phaser.Scene {
 		let textInfoLeft = this.add.text(
 			textXAxis - moveToSide,
 			yAxis,
-			'< Left Arrow',
+			'< J',
 			{ font: '2em Arial' }
 		).setOrigin(textCenter);
 
 		let textInfoRight = this.add.text(
 			textXAxis + moveToSide,
 			yAxis,
-			'Right Arrow >',
+			'K >',
 			{ font: '2em Arial' }
 		).setOrigin(textCenter);
 
