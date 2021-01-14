@@ -111,17 +111,14 @@ export class PlayGame extends Phaser.Scene {
 
 		/* Change Spaceship and Laser Color */
 		this.input.keyboard.on('keydown-Q', () => {
-			console.log('one pressed');
 			this.player.setTexture('player_blue_one');
 			this.laser = 'player_laser_blue';
 		});
 		this.input.keyboard.on('keydown-W', () => {
-			console.log('two pressed');
 			this.player.setTexture('player_red_one');
 			this.laser = 'player_laser_red';
 		});
 		this.input.keyboard.on('keydown-E', () => {
-			console.log('three pressed');
 			this.player.setTexture('player_green_one');
 			this.laser = 'player_laser_green';
 		});
