@@ -16,6 +16,18 @@ import player_laser_red from '../assets/images/png/Lasers/laserRed16.png';
 import enemy_blue_one from '../assets/images/png/Enemies/enemyBlue1.png';
 import enemy_blue_two from '../assets/images/png/Enemies/enemyBlue2.png';
 import enemy_blue_three from '../assets/images/png/Enemies/enemyBlue3.png';
+import enemy_blue_four from '../assets/images/png/Enemies/enemyBlue4.png';
+import enemy_blue_five from '../assets/images/png/Enemies/enemyBlue5.png';
+import enemy_green_one from '../assets/images/png/Enemies/enemyGreen1.png';
+import enemy_green_two from '../assets/images/png/Enemies/enemyGreen2.png';
+import enemy_green_three from '../assets/images/png/Enemies/enemyGreen3.png';
+import enemy_green_four from '../assets/images/png/Enemies/enemyGreen4.png';
+import enemy_green_five from '../assets/images/png/Enemies/enemyGreen5.png';
+import enemy_red_one from '../assets/images/png/Enemies/enemyRed1.png';
+import enemy_red_two from '../assets/images/png/Enemies/enemyRed2.png';
+import enemy_red_three from '../assets/images/png/Enemies/enemyRed3.png';
+import enemy_red_four from '../assets/images/png/Enemies/enemyRed4.png';
+import enemy_red_five from '../assets/images/png/Enemies/enemyRed5.png';
 
 export class BootGame extends Phaser.Scene {
 	constructor(){
@@ -41,6 +53,18 @@ export class BootGame extends Phaser.Scene {
 		this.load.image('enemy_blue_one', enemy_blue_one);
 		this.load.image('enemy_blue_two', enemy_blue_two);
 		this.load.image('enemy_blue_three', enemy_blue_three);
+		this.load.image('enemy_blue_four', enemy_blue_four);
+		this.load.image('enemy_blue_five', enemy_blue_five);
+		this.load.image('enemy_green_one', enemy_green_one);
+		this.load.image('enemy_green_two', enemy_green_two);
+		this.load.image('enemy_green_three', enemy_green_three);
+		this.load.image('enemy_green_four', enemy_green_four);
+		this.load.image('enemy_green_five', enemy_green_five);
+		this.load.image('enemy_red_one', enemy_red_one);
+		this.load.image('enemy_red_two', enemy_red_two);
+		this.load.image('enemy_red_three', enemy_red_three);
+		this.load.image('enemy_red_four', enemy_red_four);
+		this.load.image('enemy_red_five', enemy_red_five);
 	}
 
 	create(){
