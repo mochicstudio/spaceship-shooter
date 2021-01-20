@@ -5,4 +5,10 @@
 
 html {
 	overflow: hidden;
+	background-color: black;
+}
+
+canvas {
+	display: block;
+	margin: auto;
 }
