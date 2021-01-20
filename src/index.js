@@ -5,9 +5,12 @@ import { MochicStudio } from './scenes/MochicStudio.js';
 import { TitleScreen } from './scenes/TitleScreen.js';
 import { PlayGame } from './scenes/PlayGame.js';
 
+const MAX_WIDTH = 1080;
+const BORDERS = 1.5;
+
 var config = {
 	type: Phaser.AUTO,
-	width: window.innerWidth,
+	width: window.innerWidth > MAX_WIDTH ? window.innerWidth / BORDERS : window.innerWidth,
 	height: window.innerHeight,
 	background: 0x000000,
 	physics: {
