@@ -10,6 +10,14 @@ export class PlayGame extends Phaser.Scene {
 		this.frameCount = 0;
 		this.xSeconds = 3;
 		this.scorePerShipKilled = 25;
+		/* This variables are for moving in any direction
+		 * the spawn point */
+		this.aLittle = 25;
+		this.more = 35;
+		/* To spawn certain quantity of enemies */
+		this.three = 3;
+		this.four = 4;
+		this.five = 5;
 		this.setKeyEvents();
 		this.setBackground();
 		this.setScoreText();
@@ -89,15 +97,45 @@ export class PlayGame extends Phaser.Scene {
 	/* Player Attack.
 	 * Launch Laser to attack enemies */
 	playerAttack(){
-		const playerX = this.player.x;
-		const playerY = this.player.y - 25;
-		this.lasers.push(this.physics.add.image(playerX, playerY, this.laser));
+		if(this.playerType == 'starter'){
+			const playerX = this.player.x;
+			const playerY = this.player.y - this.aLittle;
+			/* Shoot one laser */
+			this.lasers.push(this.physics.add.image(playerX, playerY, this.laser));
+		}else if(this.playerType == 'middle'){
+			const playerXLeft = this.player.x - this.aLittle;
+			const playerXRight = this.player.x + this.aLittle;
+			const playerY = this.player.y - this.aLittle;
+			/* Shoot two lasers */
+			this.lasers.push(this.physics.add.image(playerXLeft, playerY, this.laser));
+			this.lasers.push(this.physics.add.image(playerXRight, playerY, this.laser));
+		}else if(this.playerType == 'senior'){
+			const playerX = this.player.x;
+			const playerXLeft = this.player.x - this.more;
+			const playerXRight = this.player.x + this.more;
+			const playerY = this.player.y - this.aLittle;
+			const playerYUpper = this.player.y - this.more;
+			/* Shoot three lasers */
+			this.lasers.push(this.physics.add.image(playerXLeft, playerY, this.laser));
+			this.lasers.push(this.physics.add.image(playerX, playerYUpper, this.laser));
+			this.lasers.push(this.physics.add.image(playerXRight, playerY, this.laser));
+		}
 	}
 
 	spawnEnemies(){
-		this.enemies.push(this.physics.add.image(this.getRandomX(), 0, this.getRandomEnemy()));
-		this.enemies.push(this.physics.add.image(this.getRandomX(), 0, this.getRandomEnemy()));
-		this.enemies.push(this.physics.add.image(this.getRandomX(), 0, this.getRandomEnemy()));
+		if(this.playerType == 'starter'){
+			for(let enemy = 0; enemy < this.three; enemy++){
+				this.enemies.push(this.physics.add.image(this.getRandomX(), 0, this.getRandomEnemy()));
+			}
+		}else if(this.playerType == 'middle'){
+			for(let enemy = 0; enemy < this.four; enemy++){
+				this.enemies.push(this.physics.add.image(this.getRandomX(), 0, this.getRandomEnemy()));
+			}
+		}else if(this.playerType == 'senior'){
+			for(let enemy = 0; enemy < this.five; enemy++){
+				this.enemies.push(this.physics.add.image(this.getRandomX(), 0, this.getRandomEnemy()));
+			}
+		}
 	}
 
 	getRandomEnemy(){
