@@ -13,7 +13,7 @@ export class TitleScreen extends Phaser.Scene {
 
 	setKeyEvents(){
 		/* Start Game! */
-		this.input.keyboard.on('keyup-SPACE', () => {
+		this.input.keyboard.on('keydown-SPACE', () => {
 			this.scene.start('playGame', {
 				playerName: this.playerType[this.playerTypeIter].name,
 				laserName: this.playerType[this.playerTypeIter].laser,
@@ -22,8 +22,8 @@ export class TitleScreen extends Phaser.Scene {
 		});
 
 		/* Spaceship Selection */
-		this.input.keyboard.on('keyup-J', () => { this.changeToLeft(); });
-		this.input.keyboard.on('keyup-K', () => { this.changeToRight(); });
+		this.input.keyboard.on('keydown-J', () => { this.changeToLeft(); });
+		this.input.keyboard.on('keydown-K', () => { this.changeToRight(); });
 	}
 
 	changeToLeft(){
