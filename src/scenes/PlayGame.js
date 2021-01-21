@@ -10,6 +10,7 @@ export class PlayGame extends Phaser.Scene {
 		this.frameCount = 0;
 		this.xSeconds = 3;
 		this.scorePerShipKilled = 25;
+		this.lives = 3;
 		/* This variables are for moving in any direction
 		 * the spawn point */
 		this.aLittle = 25;
@@ -21,6 +22,7 @@ export class PlayGame extends Phaser.Scene {
 		this.setKeyEvents();
 		this.setBackground();
 		this.setScoreText();
+		this.setLivesText();
 		this.initPlayer(data);
 		this.setCollisionEvents();
 	}
@@ -59,6 +61,12 @@ export class PlayGame extends Phaser.Scene {
 			laser.setPosition(laser.x, laser.y - 15, 0, 0);
 			if(laser.y < 0) laser.destroy();
 		});
+
+		if(!this.lives){
+			this.scene.start('gameOver', {
+				score: this.score.text
+			});
+		}
 	}
 
 	/* Get a random X coordinate to spawn the enemies. */
@@ -81,6 +89,10 @@ export class PlayGame extends Phaser.Scene {
 
 	setScoreText(){
 		this.score = this.add.text(20, 20, 0, { font: '2em Arial', color: 'yellow' });
+	}
+
+	setLivesText(){
+		this.livesText = this.add.text(20, 40, "Lives: " + this.lives, { font: '2em Arial', color: 'yellow' });
 	}
 
 	/* Set initial coordinates for the player. */
@@ -215,9 +227,9 @@ export class PlayGame extends Phaser.Scene {
 			/* If the enemy spaceship and the laser are the same color, then
 			 * kill the enemy. */
 			if(this.isLaserAndEnemySameColor(laser.texture.key, enemy.texture.key)){
-				this.score.setText(Number(this.score.text) + this.scorePerShipKilled);
 				laser.destroy();
 				enemy.destroy();
+				this.score.setText(Number(this.score.text) + this.scorePerShipKilled);
 			}
 		});
 
@@ -226,7 +238,8 @@ export class PlayGame extends Phaser.Scene {
 			 * kill the enemy and kill the player. */
 			if(this.isPlayerAndEnemySameColor(player.texture.key, enemy.texture.key)){
 				enemy.destroy();
-				console.log("player has less hp");
+				this.lives -= 1;
+				this.livesText.setText("Lives: " + this.lives);
 			}
 		});
 	}
