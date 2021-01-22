@@ -6,14 +6,6 @@ export class PlayGame extends Phaser.Scene {
 	create(data){
 		this.enemies = [];
 		this.lasers = [];
-		this.explosions = [
-			'explosion_blue_one',
-			'explosion_blue_two',
-			'explosion_green_one',
-			'explosion_green_two',
-			'explosion_red_one',
-			'explosion_red_two'
-		];
 		this.miliseconds = 0;
 		this.frameCount = 0;
 		this.xSeconds = 3;
@@ -231,7 +223,7 @@ export class PlayGame extends Phaser.Scene {
 	renderExplosion(position, color){
 		const X = position.x;
 		const Y = position.y;
-		const image = 'explosion_' + color + '_one';
+		const image = 'explosion_' + color;
 		const explosion = this.add.image(X, Y, image);
 
 		setTimeout(() => {
