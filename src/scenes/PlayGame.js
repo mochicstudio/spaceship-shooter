@@ -228,6 +228,17 @@ export class PlayGame extends Phaser.Scene {
 			return false;
 	}
 
+	renderExplosion(position, color){
+		const X = position.x;
+		const Y = position.y;
+		const image = 'explosion_' + color + '_one';
+		const explosion = this.add.image(X, Y, image);
+
+		setTimeout(() => {
+			explosion.destroy();
+		}, 500);
+	}
+
 	setCollisionEvents(){
 		/* Enemy Dies */
 		this.physics.add.collider(this.lasers, this.enemies, (laser, enemy) => {
@@ -237,6 +248,7 @@ export class PlayGame extends Phaser.Scene {
 				laser.destroy();
 				enemy.destroy();
 				this.score.setText(Number(this.score.text) + this.scorePerShipKilled);
+				this.renderExplosion({ x: enemy.x, y: enemy.y }, this.getColor(enemy.texture.key));
 			}
 		});
 
