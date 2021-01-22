@@ -6,6 +6,14 @@ export class PlayGame extends Phaser.Scene {
 	create(data){
 		this.enemies = [];
 		this.lasers = [];
+		this.explosions = [
+			'explosion_blue_one',
+			'explosion_blue_two',
+			'explosion_green_one',
+			'explosion_green_two',
+			'explosion_red_one',
+			'explosion_red_two'
+		];
 		this.miliseconds = 0;
 		this.frameCount = 0;
 		this.xSeconds = 3;
@@ -195,6 +203,9 @@ export class PlayGame extends Phaser.Scene {
 		this.laser = 'player_laser_' + color;
 	}
 
+	/* To retrieved the color word from a given string */
+	getColor(str){ return str[1]; }
+
 	/* Checks if the laser and the enemy spaceship are the same color
 	 * and return true or false. */
 	isLaserAndEnemySameColor(laserTextureStr, enemyTextureStr){
@@ -202,7 +213,7 @@ export class PlayGame extends Phaser.Scene {
 		const laserTextureArray = laserTextureStr.split(underscore);
 		const enemyTextureArray = enemyTextureStr.split(underscore);
 
-		if(laserTextureArray[2] == enemyTextureArray[1])
+		if(this.getColor(laserTextureArray) == this.getColor(enemyTextureArray))
 			return true;
 		else
 			return false;
@@ -215,7 +226,7 @@ export class PlayGame extends Phaser.Scene {
 		const playerTextureArray = playerTextureStr.split(underscore);
 		const enemyTextureArray = enemyTextureStr.split(underscore);
 
-		if(playerTextureArray[1] == enemyTextureArray[1])
+		if(this.getColor(playerTextureArray) == this.getColor(enemyTextureArray))
 			return true;
 		else
 			return false;
