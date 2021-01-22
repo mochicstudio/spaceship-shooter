@@ -28,6 +28,13 @@ import enemy_red_two from '../assets/images/png/Enemies/enemyRed2.png';
 import enemy_red_three from '../assets/images/png/Enemies/enemyRed3.png';
 import enemy_red_four from '../assets/images/png/Enemies/enemyRed4.png';
 import enemy_red_five from '../assets/images/png/Enemies/enemyRed5.png';
+// Explosions
+import explosion_blue_one from '../assets/images/png/Lasers/laserBlue08.png';
+import explosion_blue_two from '../assets/images/png/Lasers/laserBlue09.png';
+import explosion_green_one from '../assets/images/png/Lasers/laserGreen14.png';
+import explosion_green_two from '../assets/images/png/Lasers/laserGreen15.png';
+import explosion_red_one from '../assets/images/png/Lasers/laserRed08.png';
+import explosion_red_two from '../assets/images/png/Lasers/laserRed09.png';
 
 export class BootGame extends Phaser.Scene {
 	constructor(){
@@ -65,6 +72,12 @@ export class BootGame extends Phaser.Scene {
 		this.load.image('enemy_red_three', enemy_red_three);
 		this.load.image('enemy_red_four', enemy_red_four);
 		this.load.image('enemy_red_five', enemy_red_five);
+		this.load.image('explosion_blue_one', explosion_blue_one);
+		this.load.image('explosion_blue_two', explosion_blue_two);
+		this.load.image('explosion_green_one', explosion_green_one);
+		this.load.image('explosion_green_two', explosion_green_two);
+		this.load.image('explosion_red_one', explosion_red_one);
+		this.load.image('explosion_red_two', explosion_red_two);
 	}
 
 	create(){
