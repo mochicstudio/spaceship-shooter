@@ -187,8 +187,8 @@ export class PlayGame extends Phaser.Scene {
 		this.input.keyboard.on('keydown-SPACE', () => { this.playerAttack(); });
 
 		this.input.keyboard.on('keydown-Q', () => { this.changeSpaceshipColor('blue'); });
-		this.input.keyboard.on('keydown-W', () => { this.changeSpaceshipColor('red'); });
-		this.input.keyboard.on('keydown-E', () => { this.changeSpaceshipColor('green'); });
+		this.input.keyboard.on('keydown-W', () => { this.changeSpaceshipColor('green'); });
+		this.input.keyboard.on('keydown-E', () => { this.changeSpaceshipColor('red'); });
 	}
 
 	/* Change Spaceship and Laser Color */
@@ -200,20 +200,20 @@ export class PlayGame extends Phaser.Scene {
 		else if(this.playerType == 'senior')
 			this.player.setTexture('player_' + color + '_three');
 
-		this.laser = 'player_laser_' + color;
+		this.laser = 'laser_' + color + '_player';
 	}
 
 	/* To retrieved the color word from a given string */
-	getColor(str){ return str[1]; }
+	getColor(str){
+		const underscore = '_';
+		const strArray = str.split(underscore);
+		return strArray[1];
+	}
 
 	/* Checks if the laser and the enemy spaceship are the same color
 	 * and return true or false. */
 	isLaserAndEnemySameColor(laserTextureStr, enemyTextureStr){
-		const underscore = '_';
-		const laserTextureArray = laserTextureStr.split(underscore);
-		const enemyTextureArray = enemyTextureStr.split(underscore);
-
-		if(this.getColor(laserTextureArray) == this.getColor(enemyTextureArray))
+		if(this.getColor(laserTextureStr) == this.getColor(enemyTextureStr))
 			return true;
 		else
 			return false;
@@ -222,11 +222,7 @@ export class PlayGame extends Phaser.Scene {
 	/* Checks if the player and the enemy spaceship are the same color
 	 * and return true or false. */
 	isPlayerAndEnemySameColor(playerTextureStr, enemyTextureStr){
-		const underscore = '_';
-		const playerTextureArray = playerTextureStr.split(underscore);
-		const enemyTextureArray = enemyTextureStr.split(underscore);
-
-		if(this.getColor(playerTextureArray) == this.getColor(enemyTextureArray))
+		if(this.getColor(playerTextureStr) == this.getColor(enemyTextureStr))
 			return true;
 		else
 			return false;
