@@ -103,21 +103,21 @@ export class TitleScreen extends Phaser.Scene {
 			{
 				name: 'player_blue_one',
 				type: 'starter',
-				laser: 'player_laser_blue',
+				laser: 'laser_blue_player',
 				info: 'Starter spaceship, shoots a single laser at a time',
 				locked: false
 			},
 			{
 				name: 'player_blue_two',
 				type: 'middle',
-				laser: 'player_laser_blue',
+				laser: 'laser_blue_player',
 				info: 'Middle spaceship, shoots two lasers at a time',
 				locked: true
 			},
 			{
 				name: 'player_blue_three',
 				type: 'senior',
-				laser: 'player_laser_blue',
+				laser: 'laser_blue_player',
 				info: 'Senior spaceship, shoots three lasers at a time',
 				locked: true
 			}

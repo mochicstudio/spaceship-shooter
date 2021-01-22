@@ -179,8 +179,8 @@ export class PlayGame extends Phaser.Scene {
 		this.input.keyboard.on('keydown-SPACE', () => { this.playerAttack(); });
 
 		this.input.keyboard.on('keydown-Q', () => { this.changeSpaceshipColor('blue'); });
-		this.input.keyboard.on('keydown-W', () => { this.changeSpaceshipColor('red'); });
-		this.input.keyboard.on('keydown-E', () => { this.changeSpaceshipColor('green'); });
+		this.input.keyboard.on('keydown-W', () => { this.changeSpaceshipColor('green'); });
+		this.input.keyboard.on('keydown-E', () => { this.changeSpaceshipColor('red'); });
 	}
 
 	/* Change Spaceship and Laser Color */
@@ -192,17 +192,20 @@ export class PlayGame extends Phaser.Scene {
 		else if(this.playerType == 'senior')
 			this.player.setTexture('player_' + color + '_three');
 
-		this.laser = 'player_laser_' + color;
+		this.laser = 'laser_' + color + '_player';
+	}
+
+	/* To retrieved the color word from a given string */
+	getColor(str){
+		const underscore = '_';
+		const strArray = str.split(underscore);
+		return strArray[1];
 	}
 
 	/* Checks if the laser and the enemy spaceship are the same color
 	 * and return true or false. */
 	isLaserAndEnemySameColor(laserTextureStr, enemyTextureStr){
-		const underscore = '_';
-		const laserTextureArray = laserTextureStr.split(underscore);
-		const enemyTextureArray = enemyTextureStr.split(underscore);
-
-		if(laserTextureArray[2] == enemyTextureArray[1])
+		if(this.getColor(laserTextureStr) == this.getColor(enemyTextureStr))
 			return true;
 		else
 			return false;
@@ -211,14 +214,21 @@ export class PlayGame extends Phaser.Scene {
 	/* Checks if the player and the enemy spaceship are the same color
 	 * and return true or false. */
 	isPlayerAndEnemySameColor(playerTextureStr, enemyTextureStr){
-		const underscore = '_';
-		const playerTextureArray = playerTextureStr.split(underscore);
-		const enemyTextureArray = enemyTextureStr.split(underscore);
-
-		if(playerTextureArray[1] == enemyTextureArray[1])
+		if(this.getColor(playerTextureStr) == this.getColor(enemyTextureStr))
 			return true;
 		else
 			return false;
+	}
+
+	renderExplosion(position, color){
+		const X = position.x;
+		const Y = position.y;
+		const image = 'explosion_' + color;
+		const explosion = this.add.image(X, Y, image);
+
+		setTimeout(() => {
+			explosion.destroy();
+		}, 500);
 	}
 
 	setCollisionEvents(){
@@ -230,6 +240,7 @@ export class PlayGame extends Phaser.Scene {
 				laser.destroy();
 				enemy.destroy();
 				this.score.setText(Number(this.score.text) + this.scorePerShipKilled);
+				this.renderExplosion({ x: enemy.x, y: enemy.y }, this.getColor(enemy.texture.key));
 			}
 		});
 
