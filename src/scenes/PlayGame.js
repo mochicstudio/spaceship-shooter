@@ -248,9 +248,13 @@ export class PlayGame extends Phaser.Scene {
 			/* If the enemy spaceship and the player are the same color, then
 			 * kill the enemy and kill the player. */
 			if(this.isPlayerAndEnemySameColor(player.texture.key, enemy.texture.key)){
-				enemy.destroy();
 				this.lives -= 1;
 				this.livesText.setText("Lives: " + this.lives);
+
+				enemy.destroy();
+				this.renderExplosion({ x: enemy.x, y: enemy.y }, this.getColor(enemy.texture.key));
+				this.renderExplosion({ x: player.x, y: player.y }, this.getColor(player.texture.key));
+				this.player.setX(this.game.config.width / 2);
 			}
 		});
 	}
