@@ -4,6 +4,7 @@ import { BootGame } from './scenes/BootGame.js';
 import { MochicStudio } from './scenes/MochicStudio.js';
 import { TitleScreen } from './scenes/TitleScreen.js';
 import { PlayGame } from './scenes/PlayGame.js';
+import { Paused } from './scenes/Paused.js';
 import { GameOver } from './scenes/GameOver.js';
 
 const MAX_WIDTH = 1080;
@@ -21,7 +22,7 @@ var config = {
 			debug: true
 		}
 	},
-	scene: [BootGame, MochicStudio, TitleScreen, PlayGame, GameOver]
+	scene: [BootGame, MochicStudio, TitleScreen, PlayGame, Paused, GameOver]
 };
 
 var game = new Phaser.Game(config);
