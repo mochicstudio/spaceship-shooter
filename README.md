@@ -17,4 +17,4 @@ http-server -o index.html
 ```
 
 ## License
-[MIT](https://mit-license.org/)
+[MIT](https://github.com/MochicStudio/game-off-2020/blob/master/LICENSE)
