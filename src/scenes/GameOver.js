@@ -5,7 +5,7 @@ export class GameOver extends Phaser.Scene {
 
 	create(data){
 		this.setText(data.score);
-		this.setKeyboardEvents();
+		this.setKeyboardEvents(data);
 	}
 
 	setText(score){
@@ -43,9 +43,13 @@ export class GameOver extends Phaser.Scene {
 		).setOrigin(0.5);
 	}
 
-	setKeyboardEvents(){
+	setKeyboardEvents(data){
 		this.input.keyboard.on('keydown-SPACE', () => {
-			this.scene.start('playGame');
+			this.scene.start('playGame', {
+				playerName: data.playerName,
+				laserName: data.laserName,
+				playerType: data.playerType
+			});
 		});
 
 		this.input.keyboard.on('keydown-ENTER', () => {
