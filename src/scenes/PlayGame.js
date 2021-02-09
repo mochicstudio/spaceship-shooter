@@ -63,7 +63,12 @@ export class PlayGame extends Phaser.Scene {
 		});
 
 		if(!this.lives){
+			/* We send the player ship information
+			 * if the player wants to play again. */
 			this.scene.start('gameOver', {
+				playerName: this.playerInfo.name,
+				laserName: this.playerInfo.laserName,
+				playerType: this.playerInfo.type,
 				score: this.score.text
 			});
 		}
@@ -100,10 +105,20 @@ export class PlayGame extends Phaser.Scene {
 		const playerX = this.game.config.width/2;
 		const playerY = this.game.config.height - 50;
 
-		this.player = this.physics.add.image(0, 0, data.playerName);
+		/* We need this information to be persistant
+		 * during the playthrough. So we store it in
+		 * an object to set the player and use it
+		 * later for the game over phase. */
+		this.playerInfo = {
+			name: data.playerName,
+			laserName: data.laserName,
+			type: data.playerType
+		};
+
+		this.player = this.physics.add.image(0, 0, this.playerInfo.name);
 		this.player.setPosition(playerX, playerY, 0, 0);
-		this.laser = data.laserName;
-		this.playerType = data.playerType;
+		this.laser = this.playerInfo.laserName;
+		this.playerType = this.playerInfo.type;
 	}
 
 	/* Player Attack.
