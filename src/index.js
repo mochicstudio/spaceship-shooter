@@ -24,4 +24,4 @@ var config = {
 	scene: [BootGame, MochicStudio, TitleScreen, PlayGame, GameOver]
 };
 
-var game = new Phaser.Game(config);
+new Phaser.Game(config);
