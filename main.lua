@@ -13,12 +13,12 @@ love.update = function(dt)
 end
 
 love.draw = function()
-	local square = {100, 100, 100, 200, 200, 200, 200, 100}
+	local square = {100, seconds * 10, seconds * 10, 200, 200, 200, 200, 100}
 	
 	init()
 	
 	-- Clock
-	local clock = 'Seconds ' .. seconds
+	local clock = 'Seconds ' .. math.floor(seconds)
 	love.graphics.print(clock, 1, 15)
 	
 	-- Initialize the square with the default color (white)
