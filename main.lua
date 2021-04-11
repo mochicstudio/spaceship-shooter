@@ -1,17 +1,26 @@
 local currentColor = {1, 1, 1, 1}
+local seconds = 0
 
 init = function()
-	love.graphics.print(love.getVersion(), 10, 10)
+	love.graphics.print('Love2D version is ' .. love.getVersion(), 1, 1)
+end
+
+love.conf = function(t)
 end
 
 love.update = function(dt)
-	print(dt)
+	seconds = seconds + dt
 end
 
 love.draw = function()
 	local square = {100, 100, 100, 200, 200, 200, 200, 100}
 	
 	init()
+	
+	-- Clock
+	local clock = 'Seconds ' .. seconds
+	love.graphics.print(clock, 1, 15)
+	
 	-- Initialize the square with the default color (white)
 	love.graphics.setColor(currentColor)
 	-- Draw the square
