@@ -1,4 +1,3 @@
-currentColor = {1, 1, 1, 1}
 keyMap = {
 	-- Red
 	r = function()

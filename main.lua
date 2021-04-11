@@ -1,3 +1,4 @@
+require('current_color')
 require('keymap')
 local seconds = 0
 
