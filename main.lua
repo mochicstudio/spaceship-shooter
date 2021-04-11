@@ -6,9 +6,6 @@ init = function()
 	love.graphics.print('Love2D version is ' .. love.getVersion(), 1, 1)
 end
 
-love.conf = function(t)
-end
-
 love.update = function(dt)
 	seconds = seconds + dt
 end
