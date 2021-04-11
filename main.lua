@@ -1,6 +1,7 @@
 require('current_color')
 require('keymap')
 local seconds = 0
+local myWorld = love.physics.newWorld(0, 0) -- No gravity
 
 init = function()
 	love.graphics.print('Love2D version is ' .. love.getVersion(), 1, 1)
@@ -8,6 +9,7 @@ end
 
 love.update = function(dt)
 	seconds = seconds + dt
+	myWorld:update(dt)
 end
 
 love.draw = function()
