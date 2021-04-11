@@ -4,6 +4,10 @@ init = function()
 	love.graphics.print(love.getVersion(), 10, 10)
 end
 
+love.update = function(dt)
+	print(dt)
+end
+
 love.draw = function()
 	local square = {100, 100, 100, 200, 200, 200, 200, 100}
 	
