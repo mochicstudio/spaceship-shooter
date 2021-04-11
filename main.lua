@@ -29,4 +29,9 @@ love.keypressed = function(pressedKey)
 		-- White
 		currentColor = {1, 1, 1, 1}
 	end
+	
+	-- Quit the game
+	if pressedKey == 'escape' then
+		love.event.quit()
+	end
 end
