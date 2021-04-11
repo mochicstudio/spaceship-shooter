@@ -1,4 +1,4 @@
-local currentColor = {1, 1, 1, 1}
+require('keymap')
 local seconds = 0
 
 init = function()
@@ -27,24 +27,9 @@ love.draw = function()
 	love.graphics.polygon('fill', square)
 end
 
--- rgb colors
+-- rgb colors and exit the game
 love.keypressed = function(pressedKey)
-	if pressedKey == 'r' then
-		-- Red
-		currentColor = {1, 0, 0, 1}
-	elseif pressedKey == 'g' then
-		-- Green
-		currentColor = {0, 1, 0, 1}
-	elseif pressedKey == 'b' then
-		-- Blue
-		currentColor = {0, 0, 1, 1}
-	elseif pressedKey == 'w' then
-		-- White
-		currentColor = {1, 1, 1, 1}
-	end
-	
-	-- Quit the game
-	if pressedKey == 'escape' then
-		love.event.quit()
+	if keyMap[pressedKey] then
+		keyMap[pressedKey]()
 	end
 end
