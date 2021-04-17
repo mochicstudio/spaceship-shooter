@@ -1,3 +1,4 @@
+paused = false
 keyMap = {
 	-- Red
 	r = function()
@@ -18,5 +19,9 @@ keyMap = {
 	-- Exit
 	escape = function()
 		love.event.quit()
+	end,
+	-- Pause
+	space = function()
+		pasued = not paused
 	end
 }
