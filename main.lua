@@ -1,13 +1,9 @@
-require('current_color')
-require('keymap')
+local currentColor = require('current_color')
+local keyMap = require('keymap')
 local seconds = 0
 local myWorld, square
 
 -- Initialize the square with the default color (white)
--- love.load = function()
--- 	love.graphics.setColor(currentColor)
--- 	love.graphics.print('Love2D version is ' .. love.getVersion(), 1, 1)
--- end
 
 -- The Game World
 myWorld = love.physics.newWorld(0, 100) -- No gravity
@@ -26,18 +22,21 @@ ground.shape = love.physics.newPolygonShape(0, 0, 0, 20, 400, 20, 400, 0)
 ground.fixture = love.physics.newFixture(ground.body, ground.shape)
 
 love.update = function(dt)
-	if not paused then
+	if not keyMap.paused then
 		seconds = seconds + dt
 		myWorld:update(dt)
 	end
 end
 
 love.draw = function()
+	love.graphics.setColor(currentColor)
+	love.graphics.print('Love2D version is ' .. love.getVersion(), 1, 1)
+
 	-- Clock
 	local clock = 'Seconds ' .. math.floor(seconds)
 	love.graphics.print(clock, 1, 15)
 
-	if paused then
+	if keyMap.paused then
 		love.graphics.print('Paused', love.graphics.getWidth() / 2, love.graphics.getHeight() / 2)
 	end
 
@@ -48,7 +47,7 @@ end
 
 love.focus = function(focus)
 	-- Pause the game automatically
-	paused = not focus
+	keyMap.paused = not focus
 
 	if focus then
 		print("Window is focused")
@@ -60,6 +59,6 @@ end
 -- rgb colors and exit the game
 love.keypressed = function(pressedKey)
 	if keyMap[pressedKey] then
-		keyMap[pressedKey]()
+		currentColor = keyMap[pressedKey]()
 	end
 end

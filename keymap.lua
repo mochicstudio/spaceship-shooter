@@ -1,20 +1,20 @@
-paused = false
-keyMap = {
+local keyMap = {
+	paused = false,
 	-- Red
 	r = function()
-		currentColor = {1, 0, 0, 1}
+		return {1, 0, 0, 1}
 	end,
 	-- Green
 	g = function()
-		currentColor = {0, 1, 0, 1}
+		return {0, 1, 0, 1}
 	end,
 	-- Blue
 	b = function()
-		currentColor = {0, 0, 1, 1}
+		return {0, 0, 1, 1}
 	end,
 	-- White
 	w = function()
-		currentColor = {1, 1, 1, 1}
+		return {1, 1, 1, 1}
 	end,
 	-- Exit
 	escape = function()
@@ -22,6 +22,7 @@ keyMap = {
 	end,
 	-- Pause
 	space = function()
-		pasued = not paused
+		keyMap.paused = not keyMap.paused
 	end
 }
+return keyMap
