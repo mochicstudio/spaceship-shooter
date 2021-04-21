@@ -1,5 +1,4 @@
 local keyMap = {
-	paused = false,
 	-- Red
 	r = function()
 		return {1, 0, 0, 1}
@@ -22,7 +21,7 @@ local keyMap = {
 	end,
 	-- Pause
 	space = function()
-		keyMap.paused = not keyMap.paused
+		return 'pause'
 	end
 }
 return keyMap

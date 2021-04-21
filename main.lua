@@ -1,12 +1,13 @@
 local currentColor = require('current_color')
 local keyMap = require('keymap')
 local seconds = 0
+local paused = false
 local square = require('entities/square')
 local ground = require('entities/ground')
 local myWorld = require('world')
 
 love.update = function(dt)
-	if not keyMap.paused then
+	if not paused then
 		seconds = seconds + dt
 		myWorld:update(dt)
 	end
@@ -20,7 +21,7 @@ love.draw = function()
 	local clock = 'Seconds ' .. math.floor(seconds)
 	love.graphics.print(clock, 1, 15)
 
-	if keyMap.paused then
+	if paused then
 		love.graphics.print('Paused', love.graphics.getWidth() / 2, love.graphics.getHeight() / 2)
 	end
 
@@ -31,7 +32,7 @@ end
 
 love.focus = function(focus)
 	-- Pause the game automatically
-	keyMap.paused = not focus
+	paused = not focus
 
 	if focus then
 		print("Window is focused")
@@ -42,7 +43,15 @@ end
 
 -- rgb colors and exit the game
 love.keypressed = function(pressedKey)
+	local response
 	if keyMap[pressedKey] then
-		currentColor = keyMap[pressedKey]()
+		response = keyMap[pressedKey]()
+
+		-- Pause and unpause the game
+		if response ~= 'pause' then
+			currentColor = response
+		else
+			paused = not paused
+		end
 	end
 end
