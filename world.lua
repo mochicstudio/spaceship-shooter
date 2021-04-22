@@ -9,25 +9,25 @@ local postSolveCounter = 0
 local beginContact = function(fixtureA, fixtureB, contact)
 	beginContactCounter = beginContactCounter + 1
 	print('beginContact called ' .. beginContactCounter .. ' times')
-	print(fixtureA, fixtureB, contact, 'beginContact')
+	print(fixtureA:getUserData(), fixtureB:getUserData(), contact, 'beginContact')
 end
 
 local endContact = function(fixtureA, fixtureB, contact)
 	endContactCounter = endContactCounter + 1
 	print('endContact called ' .. endContactCounter .. ' times')
-	print(fixtureA, fixtureB, contact, 'endContact')
+	print(fixtureA:getUserData(), fixtureB:getUserData(), contact, 'endContact')
 end
 
 local preSolve = function(fixtureA, fixtureB, contact)
 	preSolveCounter = preSolveCounter + 1
 	print('preSolve called ' .. preSolveCounter .. ' times')
-	print(fixtureA, fixtureB, contact, 'preSolve')
+	print(fixtureA:getUserData(), fixtureB:getUserData(), contact, 'preSolve')
 end
 
 local postSolve = function(fixtureA, fixtureB, contact)
 	postSolveCounter = postSolveCounter + 1
 	print('postSolve called ' .. postSolveCounter .. ' times')
-	print(fixtureA, fixtureB, contact, 'postSolve')
+	print(fixtureA:getUserData(), fixtureB:getUserData(), contact, 'postSolve')
 end
 
 local world = love.physics.newWorld(0, 100) -- Vertical gravity
