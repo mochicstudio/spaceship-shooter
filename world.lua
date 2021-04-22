@@ -6,24 +6,28 @@ local preSolveCounter = 0
 local postSolveCounter = 0
 
 -- Callbacks for collision
-local beginContact = function()
+local beginContact = function(fixtureA, fixtureB, contact)
 	beginContactCounter = beginContactCounter + 1
 	print('beginContact called ' .. beginContactCounter .. ' times')
+	print(fixtureA, fixtureB, contact, 'beginContact')
 end
 
-local endContact = function()
+local endContact = function(fixtureA, fixtureB, contact)
 	endContactCounter = endContactCounter + 1
 	print('endContact called ' .. endContactCounter .. ' times')
+	print(fixtureA, fixtureB, contact, 'endContact')
 end
 
-local preSolve = function()
+local preSolve = function(fixtureA, fixtureB, contact)
 	preSolveCounter = preSolveCounter + 1
 	print('preSolve called ' .. preSolveCounter .. ' times')
+	print(fixtureA, fixtureB, contact, 'preSolve')
 end
 
-local postSolve = function()
+local postSolve = function(fixtureA, fixtureB, contact)
 	postSolveCounter = postSolveCounter + 1
 	print('postSolve called ' .. postSolveCounter .. ' times')
+	print(fixtureA, fixtureB, contact, 'postSolve')
 end
 
 local world = love.physics.newWorld(0, 100) -- Vertical gravity
