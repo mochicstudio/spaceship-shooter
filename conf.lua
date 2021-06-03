@@ -8,7 +8,7 @@ function love.conf(t)
 	t.gammacorrect = false              -- Enable gamma-correct rendering, when supported by the system (boolean)
 
 	t.audio.mic = false                 -- Request and use microphone capabilities in Android (boolean)
-	t.audio.mixwithsystem = true        -- Keep background music playing when opening LOVE (boolean, iOS and Android only)
+	t.audio.mixwithsystem = false       -- Keep background music playing when opening LOVE (boolean, iOS and Android only)
 
 	t.window.title = "Spaceship Shooter"-- The window title (string)
 	t.window.icon = "sprites/icon.png"  -- Filepath to an image to use as the window's icon (string)
