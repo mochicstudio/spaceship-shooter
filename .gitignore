@@ -1,1 +1,5 @@
-*.zip
+temp
+temp/
+*.temp
+libs/
+builds/
