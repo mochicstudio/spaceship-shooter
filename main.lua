@@ -1,5 +1,5 @@
 local Gamestate = require('libs/hump/gamestate')
-local game = require('game')
+local game = require('states/game')
 
 love.load = function()
 	Gamestate.registerEvents()
