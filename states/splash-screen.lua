@@ -1,3 +1,5 @@
+local Gamestate = require('libs/hump/gamestate')
+local game = require('states/game')
 local Timer = require('libs/hump/timer')
 local splashScreen = {}
 local HALF = 2
@@ -40,6 +42,9 @@ function splashScreen:init()
 		{ pos = {y = love.graphics.getHeight() / HALF + MOCHIC_STUDIO_IMAGE.image:getHeight() / HALF} },
 		'bounce'
 	)
+
+	-- Switch to game after the tweens are done executing
+	Timer.after(3, function(func) Gamestate.switch(game) end)
 end
 
 function splashScreen:update(dt)
