@@ -4,8 +4,12 @@ local HALF = 2
 local LINE = 15
 local MOCHIC_STUDIO_DATA
 local MOCHIC_STUDIO_IMAGE
+local COLOR
 
 function splashScreen:init()
+	COLOR = {0*255, 0*255, 0*255, 1}
+	Timer.tween(10, COLOR, {1*255, 1*255, 1*255, 1}, 'in-out-quad')
+
 	MOCHIC_STUDIO_DATA = love.image.newImageData('sprites/mochicstudio.png')
 	MOCHIC_STUDIO_IMAGE = love.graphics.newImage(MOCHIC_STUDIO_DATA)
 
@@ -13,7 +17,12 @@ function splashScreen:init()
 	print(MOCHIC_STUDIO_IMAGE:getHeight())
 end
 
+function splashScreen:update(dt)
+	Timer.update(dt)
+end
+
 function splashScreen:draw()
+	love.graphics.setBackgroundColor(COLOR)
 	love.graphics.draw(MOCHIC_STUDIO_IMAGE,10,10)
 
 	local yAxis = love.graphics.getHeight() / 2
