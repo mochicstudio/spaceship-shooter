@@ -3,14 +3,27 @@ local splashScreen = {}
 local HALF = 2
 local LINE = 15
 local MOCHIC_STUDIO_DATA
-local MOCHIC_STUDIO_IMAGE
-local POS = {x = -320}
+local MOCHIC_STUDIO_IMAGE = {
+	image = {},
+	pos = {
+		x = 0,
+		y = 0
+	}
+}
 
 function splashScreen:init()
 	MOCHIC_STUDIO_DATA = love.image.newImageData('sprites/mochicstudio.png')
-	MOCHIC_STUDIO_IMAGE = love.graphics.newImage(MOCHIC_STUDIO_DATA)
+	MOCHIC_STUDIO_IMAGE.image = love.graphics.newImage(MOCHIC_STUDIO_DATA)
 
-	Timer.tween(2, POS, {x = 10}, 'bounce')
+	MOCHIC_STUDIO_IMAGE.pos.x = love.graphics.getWidth() / HALF - MOCHIC_STUDIO_IMAGE.image:getWidth() / HALF
+	MOCHIC_STUDIO_IMAGE.pos.y = -1 * MOCHIC_STUDIO_IMAGE.image:getHeight()
+
+	Timer.tween(
+		2,
+		MOCHIC_STUDIO_IMAGE,
+		{ pos = {y = love.graphics.getHeight() / HALF - MOCHIC_STUDIO_IMAGE.image:getHeight() / HALF} },
+		'bounce'
+	)
 end
 
 function splashScreen:update(dt)
@@ -18,9 +31,13 @@ function splashScreen:update(dt)
 end
 
 function splashScreen:draw()
-	love.graphics.draw(MOCHIC_STUDIO_IMAGE,POS.x,10)
+	love.graphics.draw(
+		MOCHIC_STUDIO_IMAGE.image,
+		MOCHIC_STUDIO_IMAGE.pos.x,
+		MOCHIC_STUDIO_IMAGE.pos.y
+	)
 
-	local yAxis = love.graphics.getHeight() / 2
+	local yAxis = love.graphics.getHeight() / HALF
 	-- printf creates a box around the text so we can center it
 	love.graphics.printf('Booting ...', 0, yAxis, love.graphics.getWidth(), 'center')
 	yAxis = yAxis + LINE
