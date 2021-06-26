@@ -1,3 +1,4 @@
+local Timer = require('libs/hump/timer')
 local splashScreen = {}
 local HALF = 2
 local LINE = 15
