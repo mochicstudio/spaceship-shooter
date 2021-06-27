@@ -2,17 +2,15 @@ local Gamestate = require('libs/hump/gamestate')
 local game = require('states/game')
 local Timer = require('libs/hump/timer')
 local splashScreen = {}
-local HALF = 2
-local LINE = 15
-local MOCHIC_STUDIO_DATA
-local MOCHIC_STUDIO_IMAGE = {
+local mochicStudioData
+local mochicStudio = {
 	image = {},
 	pos = {
 		x = 0,
 		y = 0
 	}
 }
-local MOCHIC_STUDIO_TEXT = {
+local mochicStudioText = {
 	text = 'Mochic Studio',
 	pos = {
 		x = 0,
@@ -20,26 +18,29 @@ local MOCHIC_STUDIO_TEXT = {
 	}
 }
 
+local HALF = 2
+local LINE = 15
+
 function splashScreen:init()
-	MOCHIC_STUDIO_DATA = love.image.newImageData('sprites/mochicstudio.png')
-	MOCHIC_STUDIO_IMAGE.image = love.graphics.newImage(MOCHIC_STUDIO_DATA)
+	mochicStudioData = love.image.newImageData('sprites/mochicstudio.png')
+	mochicStudio.image = love.graphics.newImage(mochicStudioData)
 
-	MOCHIC_STUDIO_IMAGE.pos.x = love.graphics.getWidth() / HALF - MOCHIC_STUDIO_IMAGE.image:getWidth() / HALF
-	MOCHIC_STUDIO_IMAGE.pos.y = -1 * MOCHIC_STUDIO_IMAGE.image:getHeight()
+	mochicStudio.pos.x = love.graphics.getWidth() / HALF - mochicStudio.image:getWidth() / HALF
+	mochicStudio.pos.y = -1 * mochicStudio.image:getHeight()
 
-	MOCHIC_STUDIO_TEXT.pos.y = love.graphics.getHeight()
+	mochicStudioText.pos.y = love.graphics.getHeight()
 
 	Timer.tween(
 		2,
-		MOCHIC_STUDIO_IMAGE,
-		{ pos = {y = love.graphics.getHeight() / HALF - MOCHIC_STUDIO_IMAGE.image:getHeight() / HALF} },
+		mochicStudio,
+		{ pos = {y = love.graphics.getHeight() / HALF - mochicStudio.image:getHeight() / HALF} },
 		'bounce'
 	)
 
 	Timer.tween(
 		2,
-		MOCHIC_STUDIO_TEXT,
-		{ pos = {y = love.graphics.getHeight() / HALF + MOCHIC_STUDIO_IMAGE.image:getHeight() / HALF} },
+		mochicStudioText,
+		{ pos = {y = love.graphics.getHeight() / HALF + mochicStudio.image:getHeight() / HALF} },
 		'bounce'
 	)
 
@@ -61,15 +62,15 @@ function splashScreen:draw()
 	love.graphics.printf('LÖVE2D v' .. love.getVersion(), 0, yAxis, love.graphics.getWidth(), 'center')
 
 	love.graphics.draw(
-		MOCHIC_STUDIO_IMAGE.image,
-		MOCHIC_STUDIO_IMAGE.pos.x,
-		MOCHIC_STUDIO_IMAGE.pos.y
+		mochicStudio.image,
+		mochicStudio.pos.x,
+		mochicStudio.pos.y
 	)
 
 	love.graphics.printf(
-		MOCHIC_STUDIO_TEXT.text,
-		MOCHIC_STUDIO_TEXT.pos.x,
-		MOCHIC_STUDIO_TEXT.pos.y,
+		mochicStudioText.text,
+		mochicStudioText.pos.x,
+		mochicStudioText.pos.y,
 		love.graphics.getWidth(),
 		'center'
 	)

@@ -1,11 +1,14 @@
-local currentColor = require('current_color')
 local keyMap = require('keymap')
 local seconds = 0
 local paused = false
-local square = require('entities/square')
-local ground = require('entities/ground')
 local myWorld = require('world')
 local game = {}
+local background
+
+function game:init()
+	local backgroundData = love.image.newImageData('sprites/background/purple.png')
+	background = love.graphics.newImage(backgroundData)
+end
 
 function game:update(dt)
 	if not paused then
@@ -15,8 +18,12 @@ function game:update(dt)
 end
 
 function game:draw()
-	love.graphics.setColor(currentColor)
-	love.graphics.print('Love2D version is ' .. love.getVersion(), 1, 1)
+	-- Draw background
+	for x = 0, love.graphics.getWidth() / background:getWidth() do
+		for y = 0, love.graphics.getHeight() / background:getHeight() do
+			love.graphics.draw(background, x * background:getWidth(), y * background:getHeight())
+		end
+	end
 
 	-- Clock
 	local clock = 'Seconds ' .. math.floor(seconds)
@@ -25,10 +32,6 @@ function game:draw()
 	if paused then
 		love.graphics.print('Paused', love.graphics.getWidth() / 2, love.graphics.getHeight() / 2)
 	end
-
-	-- Draw the square
-	love.graphics.polygon('fill', square.body:getWorldPoints(square.shape:getPoints()))
-	love.graphics.polygon('fill', ground.body:getWorldPoints(ground.shape:getPoints()))
 end
 
 function game:focus(focus)
@@ -49,9 +52,7 @@ function game:keypressed(pressedKey)
 		response = keyMap[pressedKey]()
 
 		-- Pause and unpause the game
-		if response ~= 'pause' then
-			currentColor = response
-		else
+		if response == 'pause' then
 			paused = not paused
 		end
 	end
