@@ -4,10 +4,13 @@ local paused = false
 local myWorld = require('world')
 local game = {}
 local background
+local spritesheet
 
 function game:init()
 	local backgroundData = love.image.newImageData('assets/gfx/background/purple.png')
 	background = love.graphics.newImage(backgroundData)
+	local spritesheetData = love.image.newImageData('assets/gfx/sheet.png')
+	spritesheet = love.graphics.newImage(spritesheetData)
 end
 
 function game:update(dt)
@@ -24,6 +27,9 @@ function game:draw()
 			love.graphics.draw(background, x * background:getWidth(), y * background:getHeight())
 		end
 	end
+
+	-- Spritesheet
+	love.graphics.draw(spritesheet, 25, 25)
 
 	-- Clock
 	local clock = 'Seconds ' .. math.floor(seconds)
