@@ -3,7 +3,7 @@ local splashScreen = require('states/splash-screen')
 
 love.load = function()
 	-- Load main font
-	local MAIN_FONT = love.graphics.newFont('assets/PressStart2P-Regular.ttf')
+	local MAIN_FONT = love.graphics.newFont('assets/fonts/PressStart2P-Regular.ttf')
 	love.graphics.setFont(MAIN_FONT)
 
 	Gamestate.registerEvents()

@@ -6,7 +6,7 @@ local game = {}
 local background
 
 function game:init()
-	local backgroundData = love.image.newImageData('sprites/background/purple.png')
+	local backgroundData = love.image.newImageData('assets/gfx/background/purple.png')
 	background = love.graphics.newImage(backgroundData)
 end
 

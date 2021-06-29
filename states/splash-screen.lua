@@ -22,7 +22,7 @@ local HALF = 2
 local LINE = 15
 
 function splashScreen:init()
-	mochicStudioData = love.image.newImageData('sprites/mochicstudio.png')
+	mochicStudioData = love.image.newImageData('assets/gfx/mochicstudio.png')
 	mochicStudio.image = love.graphics.newImage(mochicStudioData)
 
 	mochicStudio.pos.x = love.graphics.getWidth() / HALF - mochicStudio.image:getWidth() / HALF
