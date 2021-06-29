@@ -58,7 +58,13 @@ function game:draw()
 	love.graphics.print(clock, 1, 15)
 
 	if paused then
-		love.graphics.print('Paused', love.graphics.getWidth() / 2, love.graphics.getHeight() / 2)
+		love.graphics.printf(
+			'Paused',
+			0,
+			love.graphics.getHeight() / constant.HALF,
+			love.graphics.getWidth(),
+			'center'
+		)
 	end
 end
 
