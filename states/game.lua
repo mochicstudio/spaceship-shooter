@@ -4,7 +4,8 @@ local paused = false
 local myWorld = require('world')
 local game = {}
 local background
-local spritesheet
+local spritesheet = require('entities/spritesheet')
+local spritesheetImg
 local player = {
 	quad = {},
 	dimension = {
@@ -25,11 +26,10 @@ local constant = {
 function game:init()
 	local backgroundData = love.image.newImageData('assets/gfx/background/purple.png')
 	background = love.graphics.newImage(backgroundData)
-	local spritesheetData = love.image.newImageData('assets/gfx/sheet.png')
-	spritesheet = love.graphics.newImage(spritesheetData)
+	spritesheetImg = love.graphics.newImage(spritesheet.data)
 
 	-- Set player attributes
-	player.quad = love.graphics.newQuad(211, 941, 99, 75, spritesheet:getDimensions())
+	player.quad = love.graphics.newQuad(211, 941, 99, 75, spritesheetImg:getDimensions())
 	player.pos.x, player.pos.y, player.dimension.width, player.dimension.height = player.quad:getViewport()
 	player.pos.x = (love.graphics.getWidth() / constant.HALF) - (player.dimension.width / constant.HALF)
 	player.pos.y = (love.graphics.getHeight() * constant.PLAYER_Y_POS) - (player.dimension.height / constant.HALF)
@@ -51,7 +51,7 @@ function game:draw()
 	end
 
 	-- Player
-	love.graphics.draw(spritesheet, player.quad, player.pos.x, player.pos.y, 0, 1, 1)
+	love.graphics.draw(spritesheetImg, player.quad, player.pos.x, player.pos.y, 0, 1, 1)
 
 	-- Clock
 	local clock = 'Seconds ' .. math.floor(seconds)
