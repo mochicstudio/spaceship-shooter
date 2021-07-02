@@ -17,8 +17,8 @@ return function(img)
 	player.pos.x = (love.graphics.getWidth() / constant.HALF) - (player.dimension.width / constant.HALF)
 	player.pos.y = (love.graphics.getHeight() * constant.PLAYER_POS_Y) - (player.dimension.height / constant.HALF)
 
-	player.body = love.physics.newBody(world, 200, 200, 'dynamic')
-	player.shape = love.physics.newPolygonShape(100, 100, 100, 200, 200, 200, 200, 100)
+	player.body = love.physics.newBody(world, player.pos.x, player.pos.y, 'dynamic')
+	player.shape = love.physics.newRectangleShape(player.dimension.width, player.dimension.height)
 	player.fixture = love.physics.newFixture(player.body, player.shape)
 
 	-- Set fixture ID
