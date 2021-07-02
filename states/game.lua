@@ -1,22 +1,11 @@
+local myWorld = require('world')
 local keyMap = require('keymap')
+local entities = require('entities')
 local seconds = 0
 local paused = false
-local myWorld = require('world')
 local game = {}
 local background
-local spritesheet = require('entities/spritesheet')
 local spritesheetImg
-local player = {
-	quad = {},
-	dimension = {
-		width = 0,
-		height = 0
-	},
-	pos = {
-		x = 0,
-		y = 0
-	}
-}
 
 local constant = {
 	HALF = 2,
@@ -26,13 +15,7 @@ local constant = {
 function game:init()
 	local backgroundData = love.image.newImageData('assets/gfx/background/purple.png')
 	background = love.graphics.newImage(backgroundData)
-	spritesheetImg = love.graphics.newImage(spritesheet.data)
-
-	-- Set player attributes
-	player.quad = love.graphics.newQuad(211, 941, 99, 75, spritesheetImg:getDimensions())
-	player.pos.x, player.pos.y, player.dimension.width, player.dimension.height = player.quad:getViewport()
-	player.pos.x = (love.graphics.getWidth() / constant.HALF) - (player.dimension.width / constant.HALF)
-	player.pos.y = (love.graphics.getHeight() * constant.PLAYER_Y_POS) - (player.dimension.height / constant.HALF)
+	spritesheetImg = love.graphics.newImage(entities.spritesheet.data)
 end
 
 function game:update(dt)
