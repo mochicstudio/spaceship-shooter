@@ -1,21 +1,16 @@
 local myWorld = require('world')
+local constant = require('constant')
 local keyMap = require('keymap')
-local entities = require('entities')
+local entitiesFunc = require('entities')
+local entities = entitiesFunc()
 local seconds = 0
 local paused = false
 local game = {}
 local background
-local spritesheetImg
-
-local constant = {
-	HALF = 2,
-	PLAYER_Y_POS = 0.9
-}
 
 function game:init()
 	local backgroundData = love.image.newImageData('assets/gfx/background/purple.png')
 	background = love.graphics.newImage(backgroundData)
-	spritesheetImg = love.graphics.newImage(entities.spritesheet.data)
 end
 
 function game:update(dt)
@@ -33,8 +28,10 @@ function game:draw()
 		end
 	end
 
-	-- Player
-	love.graphics.draw(spritesheetImg, player.quad, player.pos.x, player.pos.y, 0, 1, 1)
+	for i, entity in ipairs(entities) do
+		-- Shorthand for entity.draw(entity)
+		if entity.draw then entity:draw() end
+	end
 
 	-- Clock
 	local clock = 'Seconds ' .. math.floor(seconds)
