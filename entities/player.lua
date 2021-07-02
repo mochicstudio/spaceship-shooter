@@ -3,7 +3,11 @@ local constant = require('constant')
 
 -- Player
 return function(img)
-	local player
+	local player = {
+		pos = { x = 0, y = 0 },
+		dimension = { width = 0, height = 0 }
+		-- We need to set these default tables or lua gets picky
+	}
 
 	player.img = img
 	-- The values are from the XML file of the spritesheet
@@ -11,7 +15,7 @@ return function(img)
 
 	player.pos.x, player.pos.y, player.dimension.width, player.dimension.height = player.quad:getViewport()
 	player.pos.x = (love.graphics.getWidth() / constant.HALF) - (player.dimension.width / constant.HALF)
-	player.pos.y = (love.graphics.getHeight() * constant.PLAYER_Y_POS) - (player.dimension.height / constant.HALF)
+	player.pos.y = (love.graphics.getHeight() * constant.PLAYER_POS_Y) - (player.dimension.height / constant.HALF)
 
 	player.body = love.physics.newBody(world, 200, 200, 'dynamic')
 	player.shape = love.physics.newPolygonShape(100, 100, 100, 200, 200, 200, 200, 100)
