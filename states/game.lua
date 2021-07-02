@@ -1,6 +1,6 @@
 local myWorld = require('world')
 local constant = require('constant')
-local keyMap = require('keymap')
+local input = require('input')
 local entitiesFunc = require('entities')
 local entities = entitiesFunc()
 local seconds = 0
@@ -48,28 +48,22 @@ function game:draw()
 	end
 end
 
-function game:focus(focus)
-	-- Pause the game automatically
-	paused = not focus
+function game:focus(focused)
+	-- Pause the game when window is not focused
+	paused = input.toggleFocus(focused)
+end
 
-	if focus then
-		print("Window is focused")
-	else
-		print("Window is not focused")
+function game:keypressed(pressedKey)
+	local response = input.press(pressedKey)
+
+	print(response)
+	if response == 'pause' then
+		paused = not paused
 	end
 end
 
--- rgb colors and exit the game
-function game:keypressed(pressedKey)
-	local response
-	if keyMap[pressedKey] then
-		response = keyMap[pressedKey]()
-
-		-- Pause and unpause the game
-		if response == 'pause' then
-			paused = not paused
-		end
-	end
+function game:keyreleased(releasedKey)
+	input.release(releasedKey)
 end
 
 return game
