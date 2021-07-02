@@ -2,9 +2,9 @@ local spritesheet = require('entities/spritesheet')
 local player = require('entities/player')
 
 return function()
+
 	local entities = {
-		spritesheet(),
-		player()
+		player(spritesheet.img)
 	}
 
 	return entities
