@@ -17,6 +17,10 @@ function game:update(dt)
 	if not paused then
 		seconds = seconds + dt
 		myWorld:update(dt)
+
+		for i, entity in ipairs(entities) do
+			if entity.update then entity:update() end
+		end
 	end
 end
 
@@ -56,7 +60,6 @@ end
 function game:keypressed(pressedKey)
 	local response = input.press(pressedKey)
 
-	print(response)
 	if response == 'pause' then
 		paused = not paused
 	end
