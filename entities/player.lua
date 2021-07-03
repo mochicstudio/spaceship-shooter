@@ -29,8 +29,20 @@ return function(img)
 	player.fixture:setUserData(player)
 
 	player.draw = function(self)
-		love.graphics.rectangle('line', self.body:getX(), self.body:getY(), self.dimension.width, self.dimension.height)
-		love.graphics.draw(self.img, self.quad, self.body:getX(), self.body:getY(), 0, 1, 1)
+		-- Hit box
+		love.graphics.polygon('line', self.body:getWorldPoints(self.shape:getPoints()))
+		-- Sprite
+		love.graphics.draw(
+			self.img,
+			self.quad,
+			self.body:getX(),
+			self.body:getY(),
+			0,
+			1,
+			1,
+			self.dimension.width / constant.HALF,
+			self.dimension.height / constant.HALF
+		)
 	end
 
 	player.update = function(self)
