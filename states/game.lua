@@ -1,44 +1,26 @@
-local keyMap = require('keymap')
+local myWorld = require('world')
+local constant = require('constant')
+local input = require('input')
+local entitiesFunc = require('entities')
+local entities = entitiesFunc()
 local seconds = 0
 local paused = false
-local myWorld = require('world')
 local game = {}
 local background
-local spritesheet
-local player = {
-	quad = {},
-	dimension = {
-		width = 0,
-		height = 0
-	},
-	pos = {
-		x = 0,
-		y = 0
-	}
-}
-
-local constant = {
-	HALF = 2,
-	PLAYER_Y_POS = 0.9
-}
 
 function game:init()
 	local backgroundData = love.image.newImageData('assets/gfx/background/purple.png')
 	background = love.graphics.newImage(backgroundData)
-	local spritesheetData = love.image.newImageData('assets/gfx/sheet.png')
-	spritesheet = love.graphics.newImage(spritesheetData)
-
-	-- Set player attributes
-	player.quad = love.graphics.newQuad(211, 941, 99, 75, spritesheet:getDimensions())
-	player.pos.x, player.pos.y, player.dimension.width, player.dimension.height = player.quad:getViewport()
-	player.pos.x = (love.graphics.getWidth() / constant.HALF) - (player.dimension.width / constant.HALF)
-	player.pos.y = (love.graphics.getHeight() * constant.PLAYER_Y_POS) - (player.dimension.height / constant.HALF)
 end
 
 function game:update(dt)
 	if not paused then
 		seconds = seconds + dt
 		myWorld:update(dt)
+
+		for i, entity in ipairs(entities) do
+			if entity.update then entity:update() end
+		end
 	end
 end
 
@@ -50,8 +32,10 @@ function game:draw()
 		end
 	end
 
-	-- Player
-	love.graphics.draw(spritesheet, player.quad, player.pos.x, player.pos.y, 0, 1, 1)
+	for i, entity in ipairs(entities) do
+		-- Shorthand for entity.draw(entity)
+		if entity.draw then entity:draw() end
+	end
 
 	-- Clock
 	local clock = 'Seconds ' .. math.floor(seconds)
@@ -68,28 +52,21 @@ function game:draw()
 	end
 end
 
-function game:focus(focus)
-	-- Pause the game automatically
-	paused = not focus
+function game:focus(focused)
+	-- Pause the game when window is not focused
+	paused = input.toggleFocus(focused)
+end
 
-	if focus then
-		print("Window is focused")
-	else
-		print("Window is not focused")
+function game:keypressed(pressedKey)
+	local response = input.press(pressedKey)
+
+	if response == 'pause' then
+		paused = not paused
 	end
 end
 
--- rgb colors and exit the game
-function game:keypressed(pressedKey)
-	local response
-	if keyMap[pressedKey] then
-		response = keyMap[pressedKey]()
-
-		-- Pause and unpause the game
-		if response == 'pause' then
-			paused = not paused
-		end
-	end
+function game:keyreleased(releasedKey)
+	input.release(releasedKey)
 end
 
 return game

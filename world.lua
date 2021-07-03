@@ -1,5 +1,3 @@
--- World
-
 local beginContactCounter = 0
 local endContactCounter = 0
 local preSolveCounter = 0
@@ -34,6 +32,6 @@ local postSolve = function(fixtureA, fixtureB, contact)
 	print(fixtureA:getUserData(), fixtureB:getUserData(), x1, y1, x2, y2, 'postSolve')
 end
 
-local world = love.physics.newWorld(0, 100) -- Vertical gravity
+local world = love.physics.newWorld(0, 0)
 world:setCallbacks(beginContact, endContact, preSolve, postSolve)
 return world
