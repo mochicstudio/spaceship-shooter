@@ -20,7 +20,8 @@ return function(img)
 	player.pos.x = (love.graphics.getWidth() / constant.HALF) - (player.dimension.width / constant.HALF)
 	player.pos.y = (love.graphics.getHeight() * constant.PLAYER_POS_Y) - (player.dimension.height / constant.HALF)
 
-	player.body = love.physics.newBody(world, player.pos.x, player.pos.y, 'kinematic')
+	player.body = love.physics.newBody(world, player.pos.x, player.pos.y, 'dynamic')
+	player.body:setMass(100)
 	player.shape = love.physics.newRectangleShape(player.dimension.width, player.dimension.height)
 	player.fixture = love.physics.newFixture(player.body, player.shape)
 
@@ -28,6 +29,7 @@ return function(img)
 	player.fixture:setUserData(player)
 
 	player.draw = function(self)
+		love.graphics.rectangle('line', self.body:getX(), self.body:getY(), self.dimension.width, self.dimension.height)
 		love.graphics.draw(self.img, self.quad, self.body:getX(), self.body:getY(), 0, 1, 1)
 	end
 
