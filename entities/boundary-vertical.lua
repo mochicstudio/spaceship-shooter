@@ -1,9 +1,10 @@
 local world = require('world')
+local constant = require('constant')
 
 return function(posX)
 	local boundary = {}
 
-	boundary.body = love.physics.newBody(world, posX, 0, 'static')
+	boundary.body = love.physics.newBody(world, posX, love.graphics.getHeight() / constant.HALF, 'static')
 	boundary.shape = love.physics.newRectangleShape(1, love.graphics.getHeight())
 	boundary.fixture = love.physics.newFixture(boundary.body, boundary.shape)
 	boundary.fixture:setUserData(boundary)

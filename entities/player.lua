@@ -17,8 +17,8 @@ return function(img)
 
 	-- These are the initial player position, do NOT use later. Use body positon.
 	player.pos.x, player.pos.y, player.dimension.width, player.dimension.height = player.quad:getViewport()
-	player.pos.x = (love.graphics.getWidth() / constant.HALF) - (player.dimension.width / constant.HALF)
-	player.pos.y = (love.graphics.getHeight() * constant.PLAYER_POS_Y) - (player.dimension.height / constant.HALF)
+	player.pos.x = love.graphics.getWidth() / constant.HALF
+	player.pos.y = love.graphics.getHeight() * constant.PLAYER_POS_Y
 
 	player.body = love.physics.newBody(world, player.pos.x, player.pos.y, 'dynamic')
 	player.body:setMass(100)
