@@ -1,14 +1,16 @@
 local world = require('world')
 local constant = require('constant')
 local input = require('input')
+local laser = require('entities/laser')
 
 -- Player
 return function(img)
 	local player = {
 		speed = 600,
 		pos = { x = 0, y = 0 },
-		dimension = { width = 0, height = 0 }
+		dimension = { width = 0, height = 0 },
 		-- We need to set these default tables or lua gets picky
+		lasers = {}
 	}
 
 	player.img = img
@@ -43,6 +45,10 @@ return function(img)
 			self.dimension.width / constant.HALF,
 			self.dimension.height / constant.HALF
 		)
+
+		for i, laser in ipairs(self.lasers) do
+			laser:draw()
+		end
 	end
 
 	player.update = function(self)
@@ -58,6 +64,15 @@ return function(img)
 			self.body:setLinearVelocity(self.speed, 0)
 		else
 			self.body:setLinearVelocity(0, 0)
+		end
+
+		for i, laser in ipairs(self.lasers) do
+			laser:update()
+		end
+
+		-- Shoot
+		if input.buttonUp then
+			table.insert(self.lasers, laser(self.img, self.body:getX(), self.body:getY()))
 		end
 	end
 
