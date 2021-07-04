@@ -3,7 +3,7 @@ local constant = require('constant')
 
 return function(img, posX, posY)
 	local laser = {
-		speed = 200,
+		speed = 500,
 		pos = { x = 0, y = 0 },
 		dimension = { width = 0, height = 0 }
 	}
