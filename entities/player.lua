@@ -72,7 +72,14 @@ return function(img)
 
 		-- Shoot
 		if input.buttonUp then
-			table.insert(self.lasers, laser(self.img, self.body:getX(), self.body:getY()))
+			table.insert(
+				self.lasers,
+				laser(
+					self.img,
+					self.body:getX(),
+					self.body:getY() - self.dimension.height
+				)
+			)
 		end
 	end
 
