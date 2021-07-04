@@ -35,6 +35,10 @@ pressFunctions.right = function()
 	input.buttonRight = true
 end
 
+pressFunctions.up = function()
+	input.buttonUp = true
+end
+
 pressFunctions.escape = function()
 	love.event.quit()
 end
@@ -50,6 +54,10 @@ end
 
 releaseFunctions.right = function()
 	input.buttonRight = false
+end
+
+releaseFunctions.up = function()
+	input.buttonUp = false
 end
 
 return input
