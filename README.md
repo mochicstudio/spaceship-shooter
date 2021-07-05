@@ -5,10 +5,12 @@
 ### Dependencies
 - [hump/gamestate](https://github.com/vrld/hump/blob/master/gamestate.lua)
 - [hump/timer](https://github.com/vrld/hump/blob/master/timer.lua)
+- [hump/signal](https://github.com/vrld/hump/blob/master/signal.lua)
 ### Directory Tree
 ``` sh
 libs/hump/gamestate.lua
 libs/hump/timer.lua
+libs/hump/signal.lua
 ```
 3. On root directory run
 ``` sh
