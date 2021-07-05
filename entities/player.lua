@@ -28,7 +28,7 @@ return function(img)
 	player.fixture = love.physics.newFixture(player.body, player.shape)
 
 	-- Set fixture ID
-	player.fixture:setUserData(player)
+	player.fixture:setUserData('player')
 
 	player.shoot = function(self)
 		table.insert(
