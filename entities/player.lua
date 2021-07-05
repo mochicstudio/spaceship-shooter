@@ -30,6 +30,17 @@ return function(img)
 	-- Set fixture ID
 	player.fixture:setUserData(player)
 
+	player.shoot = function(self)
+		table.insert(
+			self.lasers,
+			laser(
+				self.img,
+				self.body:getX(),
+				self.body:getY() - self.dimension.height
+			)
+		)
+	end
+
 	player.draw = function(self)
 		-- Hit box
 		love.graphics.polygon('line', self.body:getWorldPoints(self.shape:getPoints()))
@@ -70,16 +81,8 @@ return function(img)
 			laser:update()
 		end
 
-		-- Shoot
 		if input.buttonUp then
-			table.insert(
-				self.lasers,
-				laser(
-					self.img,
-					self.body:getX(),
-					self.body:getY() - self.dimension.height
-				)
-			)
+			self:shoot()
 		end
 	end
 
