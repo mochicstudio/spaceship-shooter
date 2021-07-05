@@ -20,6 +20,10 @@ return function(img, posX, posY)
 	laser.fixture = love.physics.newFixture(laser.body, laser.shape)
 	laser.fixture:setUserData(laser)
 
+	laser.move = function(self)
+		self.body:setLinearVelocity(0, -self.speed)
+	end
+
 	laser.draw = function(self)
 		-- Hit box
 		love.graphics.polygon('line', self.body:getWorldPoints(self.shape:getPoints()))
@@ -38,7 +42,7 @@ return function(img, posX, posY)
 	end
 
 	laser.update = function(self)
-		self.body:setLinearVelocity(0, -self.speed)
+		self:move()
 	end
 
 	return laser
