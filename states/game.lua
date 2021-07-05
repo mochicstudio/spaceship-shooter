@@ -1,3 +1,4 @@
+local Signal = require('libs/hump/signal')
 local myWorld = require('world')
 local constant = require('constant')
 local input = require('input')
@@ -11,6 +12,16 @@ local background
 function game:init()
 	local backgroundData = love.image.newImageData('assets/gfx/background/purple.png')
 	background = love.graphics.newImage(backgroundData)
+
+	-- Events
+	Signal.register('playerShoot', function()
+		local playerStr = 'player'
+		for i, entity in ipairs(entities) do
+			if entity.fixture:getUserData() == playerStr then
+				entity:shoot()
+			end
+		end
+	end)
 end
 
 function game:update(dt)
