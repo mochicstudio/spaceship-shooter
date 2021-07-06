@@ -1,3 +1,4 @@
+local Signal = require('libs/hump/signal')
 -- Input Service
 local input = {}
 -- Specific user inputs to game actions
@@ -35,6 +36,11 @@ pressFunctions.right = function()
 	input.buttonRight = true
 end
 
+pressFunctions.up = function()
+	-- input.buttonUp = true
+	Signal.emit('playerShoot')
+end
+
 pressFunctions.escape = function()
 	love.event.quit()
 end
@@ -50,6 +56,10 @@ end
 
 releaseFunctions.right = function()
 	input.buttonRight = false
+end
+
+releaseFunctions.up = function()
+	input.buttonUp = false
 end
 
 return input
