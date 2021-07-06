@@ -78,7 +78,13 @@ return function(img)
 		end
 
 		for i, laser in ipairs(self.lasers) do
-			laser:update()
+			if laser.dead then
+				laser.fixture:destroy()
+				laser.body:destroy()
+				table.remove(self.lasers, i)
+			else
+				laser:update()
+			end
 		end
 
 		if input.buttonUp then
