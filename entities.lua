@@ -8,7 +8,7 @@ return function()
 	local entities = {
 		boundaryLeft(-1),
 		boundaryRight(love.graphics.getWidth() + 1),
-		boundaryTop(-1),
+		boundaryTop(-150),
 		player(spritesheet.img)
 	}
 
