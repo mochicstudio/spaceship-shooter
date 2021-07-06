@@ -5,7 +5,8 @@ return function(img, posX, posY)
 	local laser = {
 		speed = 500,
 		pos = { x = 0, y = 0 },
-		dimension = { width = 0, height = 0 }
+		dimension = { width = 0, height = 0 },
+		dead = false
 	}
 
 	laser.img = img
@@ -43,6 +44,10 @@ return function(img, posX, posY)
 
 	laser.update = function(self)
 		self:move()
+	end
+
+	laser.beginContact = function(self)
+		self.dead = true
 	end
 
 	return laser
