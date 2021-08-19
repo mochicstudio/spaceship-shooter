@@ -1,5 +1,4 @@
 temp
 temp/
 *.temp
-libs/
-builds/
+node_modules/
