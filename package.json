@@ -1,7 +1,7 @@
 {
-  "name": "mochicstudio-phaser3-typescript-template",
+  "name": "mochicstudio-spaceship-shooter",
   "version": "1.0.0",
-  "description": "Mochic Studio Phaser 3 TypeScript",
+  "description": "Mochic Studio Spaceship Shooter",
   "main": "dist/index.js",
   "scripts": {
     "dev": "vite",
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MochicStudio/phaser-template"
+    "url": "git+https://github.com/MochicStudio/spaceship-shooter"
   },
   "author": "Andres Ruiz",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/MochicStudio/phaser-template/issues"
+    "url": "https://github.com/MochicStudio/spaceship-shooter/issues"
   },
-  "homepage": "https://github.com/MochicStudio/phaser-template#readme",
+  "homepage": "https://github.com/MochicStudio/spaceship-shooter#readme",
   "devDependencies": {
     "@types/node": "^14.14.27",
     "@rollup/plugin-alias": "^3.1.2",
