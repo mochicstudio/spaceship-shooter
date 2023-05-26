@@ -1,7 +1,13 @@
-export class TitleScreen extends Phaser.Scene {
+import { game } from './Game';
+
+class TitleScreen extends Phaser.Scene {
 	constructor(){
-		super('titleScreen');
+		super('TitleScreen');
 	}
+
+  preload() {
+    this.scene.add('game', game);
+  }
 
 	create(){
 		/* Setup Title Screen */
@@ -14,7 +20,7 @@ export class TitleScreen extends Phaser.Scene {
 	setKeyEvents(){
 		/* Start Game! */
 		this.input.keyboard.on('keydown-SPACE', () => {
-			this.scene.start('playGame', {
+			this.scene.start(game, {
 				playerName: this.playerType[this.playerTypeIter].name,
 				laserName: this.playerType[this.playerTypeIter].laser,
 				playerType: this.playerType[this.playerTypeIter].type
@@ -180,3 +186,6 @@ export class TitleScreen extends Phaser.Scene {
 		this.playerSelectionContainer.setPosition(this.game.config.width / 2, this.game.config.height / 2);
 	}
 }
+
+const titleScreen = new TitleScreen();
+export { titleScreen };
